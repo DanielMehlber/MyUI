@@ -1,10 +1,31 @@
 package core;
 
+import java.awt.Font;
+
 public class MyDesign {
 
-	private MyColor base_color;
-	private MyColor accent_color;
-	private MyColor text_color;
+	public MyColor baseColor;
+	public MyColor accentColor;
+	public MyColor textColor;
+	
+	public Font font;
+	
+	public enum FRAME_DESIGN {
+		BAR, FLAT
+	}
+	
+	public enum BUTTON_COLOR_DESIGN {
+		ACCENT, BASE
+	}
+	
+	public enum BUTTON_DESIGN {
+		FLAT
+	}
+	
+	
+	public FRAME_DESIGN frameTopDesign;
+	public BUTTON_COLOR_DESIGN buttonColorDesign;
+	public BUTTON_DESIGN buttonDesign;
 	
 	final static MyDesign DEFAULT = new MyDesign();
 	
@@ -14,34 +35,48 @@ public class MyDesign {
 	}
 	
 	public MyDesign(MyColor base, MyColor accent, MyColor text) {
-		base_color = base;
-		accent_color = accent;
-		text_color = text;
+		baseColor = base;
+		accentColor = accent;
+		textColor = text;
+		frameTopDesign = FRAME_DESIGN.FLAT;
+		font = new Font("Tahoma", Font.PLAIN, 10);
+		buttonColorDesign = BUTTON_COLOR_DESIGN.ACCENT;
+		buttonDesign = BUTTON_DESIGN.FLAT;
 	}
 
 	public MyColor getBaseColor() {
-		return base_color;
+		return baseColor;
 	}
 
 	public void setBaseColor(MyColor base_color) {
-		this.base_color = base_color;
+		this.baseColor = base_color;
 	}
 
 	public MyColor getAccentColor() {
-		return accent_color;
+		return accentColor;
 	}
 
 	public void setAccentColor(MyColor accent_color) {
-		this.accent_color = accent_color;
+		this.accentColor = accent_color;
 	}
 
 	public MyColor getTextColor() {
-		return text_color;
+		return textColor;
 	}
 
 	public void setTextColor(MyColor text_color) {
-		this.text_color = text_color;
+		this.textColor = text_color;
 	}
+
+	public FRAME_DESIGN getFrameTopDesign() {
+		return frameTopDesign;
+	}
+
+	public void setFrameTopDesign(FRAME_DESIGN frame_design) {
+		this.frameTopDesign = frame_design;
+	}
+	
+	
 	
 	
 
