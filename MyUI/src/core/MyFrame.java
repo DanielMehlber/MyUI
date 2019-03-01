@@ -2,6 +2,8 @@ package core;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -168,7 +170,7 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+			
 				
 			}
 			
