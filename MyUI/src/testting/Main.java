@@ -21,7 +21,9 @@ public class Main {
 		MyButton btn = new MyButton(design, "HALLO WELT");
 		btn.setLocation(132, 91);
 		page.add(btn);
+		frame.animation_open_window(1000, 1000);
 		
+	
 	}
 
 }

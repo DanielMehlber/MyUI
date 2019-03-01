@@ -7,8 +7,11 @@ import javax.swing.JSplitPane;
 
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
@@ -49,11 +52,11 @@ public class MyFrame extends JFrame implements Designable{
 		topButtons = new JPanel();
 		top.add(topButtons, BorderLayout.EAST);
 		
-		exit = new JLabel(" (X) ");
+		exit = new JLabel(" X ");
 		
-		minimize = new JLabel(" (_) ");
+		minimize = new JLabel(" _ ");
 		
-		maximize = new JLabel(" ([]) ");
+		maximize = new JLabel(" [] ");
 		
 		topButtons.add(minimize);
 		topButtons.add(maximize);
@@ -65,7 +68,7 @@ public class MyFrame extends JFrame implements Designable{
 		
 		
 		applyDesign();
-		setBounds(100,100,500,500);
+		setBounds(100,100,500,0);
 		setVisible(true);
 		
 		//operators
@@ -79,6 +82,7 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				animation_roll_in();
 				System.exit(0);
 				
 			}
@@ -147,28 +151,46 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				setExtendedState(MAXIMIZED_BOTH);
+				if(getExtendedState() != MAXIMIZED_BOTH)
+					setExtendedState(MAXIMIZED_BOTH);
+				else
+					setExtendedState(NORMAL);
 				
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});
+		
+		Point point = new Point();
+		addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                point.x = e.getX();
+                point.y = e.getY();
+            }
+        });
+		addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                Point p = getLocation();
+                setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
+            }
+        });
+		
 	}
 
 	@Override
@@ -197,6 +219,8 @@ public class MyFrame extends JFrame implements Designable{
 		}
 		
 		}
+		
+		title.setFont(design.font);
 		
 	}
 
@@ -228,4 +252,83 @@ public class MyFrame extends JFrame implements Designable{
 		return new MyContentPage(design);
 	}
 	
+	
+	public void animation_roll_in() {
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(getSize().height > 0) {
+					try {
+						Thread.currentThread().sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					setSize(getSize().width, getSize().height - 8);
+				}
+				
+			}
+		});
+		
+		t.start();
+		while(t.isAlive()) {}
+	}
+	
+	public void animation_roll_out(int height) {
+		setSize(getSize().width, 0);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(getSize().height < height) {
+					try {
+						Thread.currentThread().sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					setSize(getSize().width, getSize().height + 4);
+				}
+				
+			}
+		});
+		
+		t.start();
+		while(t.isAlive()) {}
+	}
+	
+	public void animation_open_window(int width, int height) {
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				setSize(100, top.getSize().height);
+				while(getSize().width < width) {
+					try {
+						Thread.currentThread().sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					setSize(getSize().width + 8, getSize().height);
+				}
+				
+				while(getSize().height < height) {
+					try {
+						Thread.currentThread().sleep(2);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					setSize(getSize().width, getSize().height + 8);
+				}
+				
+			}
+		});
+		t.start();
+		while(t.isAlive()) {}
+	}
 }
