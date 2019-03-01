@@ -24,7 +24,7 @@ public class MyButton extends JPanel implements Designable {
 	 */
 	public MyButton(MyMaterialDesign design, String s) {
 		setLayout(new BorderLayout(0, 0));
-		this.design = design;
+		setDesign(design);
 		setBounds(0,0,150, 40);
 		text = new JLabel(s);
 		text.setHorizontalAlignment(SwingConstants.CENTER);
@@ -35,13 +35,13 @@ public class MyButton extends JPanel implements Designable {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				System.out.println("RELEASED");
 				setBackground(design.accentColor.getColor());
+				if(operator != null)
+					operator.run();
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("PRESSED...");
 				setBackground(design.accentColor.darker(40).getColor());
 				
 			}
@@ -117,6 +117,15 @@ public class MyButton extends JPanel implements Designable {
 	
 	public void setOperator(Runnable runnable) {
 		operator = runnable;
+	}
+
+	@Override
+	public void setDesign(MyMaterialDesign d) {
+		if(design != null)
+			this.design.unregister(this);
+		design = d;
+		design.register(this);
+		
 	}
 	
 	

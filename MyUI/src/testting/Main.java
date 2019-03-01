@@ -7,24 +7,29 @@ import core.MyMaterialDesign;
 import core.MyMaterialDesign.FRAME_DESIGN;
 import core.MyFrame;
 
-public class Main {
+public class Main extends MyFrame{
 
 	public static void main(String[]args) {
-		MyFrame frame = new MyFrame();
-		MyMaterialDesign design = new MyMaterialDesign(MyColor.DARK_GRAY, MyColor.ORANGE, MyColor.WHITE);
-		design.frameTopDesign = FRAME_DESIGN.FLAT;
-		frame.setDesign(design);
-		frame.setTitle("App");
-		frame.applyDesign();
-		MyContentPage page = new MyContentPage(design);
-		frame.setContentPage(page);
-		MyButton btn = new MyButton(design, "HALLO WELT");
-		btn.setLocation(132, 91);
-		page.add(btn);
-		frame.setAnimationsEnabled(true);
-		frame.animation_open_window(1000, 1000);
-		
+		new Main();
+	}
 	
+	
+	public Main() {
+		super(MyMaterialDesign.FOX);
+		setTitle("Test");
+		go(600,600);
+		
+		MyContentPage page = genContentPage();
+		setContentPage(page);
+		MyButton btn = page.genButton("Say Hello");
+		btn.operator = new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println("Hello");
+				
+			}
+		};
 	}
 
 }

@@ -33,12 +33,19 @@ public class MyFrame extends JFrame implements Designable{
 	
 	boolean animsEnabled = true;
 	
+	/**
+	 * Creates a Frame with no Material Design
+	 */
 	public MyFrame() {
 		this(new MyMaterialDesign());
 	}
 	
+	/**
+	 * Creates a Frame with specified Material Design
+	 * @param d Material Design
+	 */
 	public MyFrame(MyMaterialDesign d) {
-		design = d;
+		setDesign(d);
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -86,7 +93,7 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				animation_roll_in();
+				animation_roll_in(true);
 				System.exit(0);
 				
 			}
@@ -228,15 +235,25 @@ public class MyFrame extends JFrame implements Designable{
 		
 	}
 
+	/**
+	 * Returns the current Design
+	 * @return Design
+	 */
 	public MyMaterialDesign getDesign() {
 		return design;
 	}
 
+	
 	public void setDesign(MyMaterialDesign design) {
+		if(this.design != null)
+			this.design.unregister(this);
 		this.design = design;
-		applyDesign();
+		this.design.register(this);
 	}
 	
+	/**
+	 * Title of frame
+	 */
 	@Override
 	public void setTitle(String t) {
 		title.setText(t);
@@ -247,17 +264,28 @@ public class MyFrame extends JFrame implements Designable{
 		return title.getText();
 	}
 	
+	/**
+	 * Set the Content Page
+	 * @param page A content page to be set
+	 */
 	public void setContentPage(MyContentPage page) {
 		scene.removeAll();
 		scene.add(page, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Generates a content page from design
+	 * @return new content page
+	 */
 	public MyContentPage genContentPage() {
 		return new MyContentPage(design);
 	}
 	
-	
-	public void animation_roll_in() {
+	/**
+	 * Plays the rolling in animation
+	 * @param wait should the program wait till the animation finishes ?
+	 */
+	public void animation_roll_in(boolean wait) {
 		if(!animsEnabled)
 			return;
 		Thread t = new Thread(new Runnable() {
@@ -279,10 +307,16 @@ public class MyFrame extends JFrame implements Designable{
 		});
 		
 		t.start();
-		while(t.isAlive()) {}
+		if(wait)
+			while(t.isAlive()) {}
 	}
 	
-	public void animation_roll_out(int height) {
+	/**
+	 * Plays the rolling out animation
+	 * @param height The end-height
+	 * @param wait should the program wait till the animation finishes ?
+	 */
+	public void animation_roll_out(int height, boolean wait) {
 		if(!animsEnabled)
 			return;
 		setSize(getSize().width, 0);
@@ -305,9 +339,15 @@ public class MyFrame extends JFrame implements Designable{
 		});
 		
 		t.start();
-		while(t.isAlive()) {}
+		if(wait)
+			while(t.isAlive()) {}
 	}
 	
+	/**
+	 * Plays the open window animation
+	 * @param width Width
+	 * @param height Height
+	 */
 	public void animation_open_window(int width, int height) {
 		if(!animsEnabled) {
 			setSize(width, height);
@@ -341,11 +381,39 @@ public class MyFrame extends JFrame implements Designable{
 			}
 		});
 		t.start();
-		while(t.isAlive()) {}
+		//while(t.isAlive()) {}
 	}
 	
+	/**
+	 * Enable or disable the standard window animations
+	 * @param b
+	 */
 	public void setAnimationsEnabled(boolean b) {
 		animsEnabled = b;
+	}
+	
+	
+	/**
+	 * Simplest way to start a frame
+	 * @param width Width
+	 * @param height Height
+	 */
+	public void go(int width, int height) {
+		animation_open_window(width, height);
+	}
+	
+	/**
+	 * Redesign this frame and all its components
+	 * @param animation Should the redesign animation be played ?
+	 */
+	public void redesign(boolean animation) {
+		if(animation) {
+			int height = getSize().height;
+			animation_roll_in(true);
+			getDesign().apply();
+			animation_roll_out(height, false);
+		}else
+			getDesign().apply();
 	}
 	
 }

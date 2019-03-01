@@ -7,7 +7,7 @@ public class MyContentPage extends JPanel implements Designable{
 	public MyMaterialDesign design;
 	
 	public MyContentPage(MyMaterialDesign d) {
-		design = d;
+		setDesign(d);
 		setLayout(null);
 		applyDesign();
 	}
@@ -22,6 +22,15 @@ public class MyContentPage extends JPanel implements Designable{
 		MyButton ret = new MyButton(design, text);
 		add(ret);
 		return ret;
+	}
+
+	@Override
+	public void setDesign(MyMaterialDesign d) {
+		if(design != null)
+			this.design.unregister(this);
+		design = d;
+		design.register(this);
+		
 	}
 
 }
