@@ -2,7 +2,7 @@ package core;
 
 import java.awt.Font;
 
-public class MyDesign {
+public class MyMaterialDesign {
 
 	public MyColor baseColor;
 	public MyColor accentColor;
@@ -27,14 +27,14 @@ public class MyDesign {
 	public BUTTON_COLOR_DESIGN buttonColorDesign;
 	public BUTTON_DESIGN buttonDesign;
 	
-	final static MyDesign DEFAULT = new MyDesign();
+	final static MyMaterialDesign DEFAULT = new MyMaterialDesign();
 	
 	
-	public MyDesign() {
+	public MyMaterialDesign() {
 		this(MyColor.WHITE, MyColor.WHITE, MyColor.BLACK);
 	}
 	
-	public MyDesign(MyColor base, MyColor accent, MyColor text) {
+	public MyMaterialDesign(MyColor base, MyColor accent, MyColor text) {
 		baseColor = base;
 		accentColor = accent;
 		textColor = text;

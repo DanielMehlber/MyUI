@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 public class MyButton extends JPanel implements Designable {
 
 	
-	public MyDesign design;
+	public MyMaterialDesign design;
 	public Font customFont = null;
 	public MyColor customTextColor = null;
 	public MyColor customColor = null;
@@ -22,7 +22,7 @@ public class MyButton extends JPanel implements Designable {
 	/**
 	 * Create the panel.
 	 */
-	public MyButton(MyDesign design, String s) {
+	public MyButton(MyMaterialDesign design, String s) {
 		setLayout(new BorderLayout(0, 0));
 		this.design = design;
 		setBounds(0,0,150, 40);

@@ -20,7 +20,7 @@ import java.awt.Font;
 
 public class MyFrame extends JFrame implements Designable{
 
-	private MyDesign design;
+	private MyMaterialDesign design;
 	public JPanel top;
 	public JPanel scene;
 	private JLabel title;
@@ -29,11 +29,13 @@ public class MyFrame extends JFrame implements Designable{
 	JLabel minimize;
 	JLabel maximize;
 	
+	boolean animsEnabled = true;
+	
 	public MyFrame() {
-		this(new MyDesign());
+		this(new MyMaterialDesign());
 	}
 	
-	public MyFrame(MyDesign d) {
+	public MyFrame(MyMaterialDesign d) {
 		design = d;
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -224,11 +226,11 @@ public class MyFrame extends JFrame implements Designable{
 		
 	}
 
-	public MyDesign getDesign() {
+	public MyMaterialDesign getDesign() {
 		return design;
 	}
 
-	public void setDesign(MyDesign design) {
+	public void setDesign(MyMaterialDesign design) {
 		this.design = design;
 		applyDesign();
 	}
@@ -254,6 +256,8 @@ public class MyFrame extends JFrame implements Designable{
 	
 	
 	public void animation_roll_in() {
+		if(!animsEnabled)
+			return;
 		Thread t = new Thread(new Runnable() {
 			
 			@Override
@@ -266,7 +270,7 @@ public class MyFrame extends JFrame implements Designable{
 						e.printStackTrace();
 					}
 					
-					setSize(getSize().width, getSize().height - 8);
+					setSize(getSize().width, getSize().height - 10);
 				}
 				
 			}
@@ -277,6 +281,8 @@ public class MyFrame extends JFrame implements Designable{
 	}
 	
 	public void animation_roll_out(int height) {
+		if(!animsEnabled)
+			return;
 		setSize(getSize().width, 0);
 		Thread t = new Thread(new Runnable() {
 			
@@ -290,7 +296,7 @@ public class MyFrame extends JFrame implements Designable{
 						e.printStackTrace();
 					}
 					
-					setSize(getSize().width, getSize().height + 4);
+					setSize(getSize().width, getSize().height + 10);
 				}
 				
 			}
@@ -301,6 +307,10 @@ public class MyFrame extends JFrame implements Designable{
 	}
 	
 	public void animation_open_window(int width, int height) {
+		if(!animsEnabled) {
+			setSize(width, height);
+			return;
+		}
 		Thread t = new Thread(new Runnable() {
 			
 			@Override
@@ -313,7 +323,7 @@ public class MyFrame extends JFrame implements Designable{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					setSize(getSize().width + 8, getSize().height);
+					setSize(getSize().width + 10, getSize().height);
 				}
 				
 				while(getSize().height < height) {
@@ -323,7 +333,7 @@ public class MyFrame extends JFrame implements Designable{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					setSize(getSize().width, getSize().height + 8);
+					setSize(getSize().width, getSize().height + 10);
 				}
 				
 			}
@@ -331,4 +341,9 @@ public class MyFrame extends JFrame implements Designable{
 		t.start();
 		while(t.isAlive()) {}
 	}
+	
+	public void setAnimationsEnabled(boolean b) {
+		animsEnabled = b;
+	}
+	
 }

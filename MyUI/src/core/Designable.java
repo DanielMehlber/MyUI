@@ -2,7 +2,7 @@ package core;
 
 public abstract interface Designable {
 
-	public MyDesign design = MyDesign.DEFAULT;
+	public MyMaterialDesign design = MyMaterialDesign.DEFAULT;
 	public abstract void applyDesign();
 
 }

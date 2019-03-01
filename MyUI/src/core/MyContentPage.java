@@ -4,9 +4,9 @@ import javax.swing.JPanel;
 
 public class MyContentPage extends JPanel implements Designable{
 
-	public MyDesign design;
+	public MyMaterialDesign design;
 	
-	public MyContentPage(MyDesign d) {
+	public MyContentPage(MyMaterialDesign d) {
 		design = d;
 		setLayout(null);
 		applyDesign();
