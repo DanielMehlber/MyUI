@@ -2,7 +2,6 @@ package core;
 
 public abstract interface Designable {
 
-	public MyMaterialDesign design = MyMaterialDesign.DEFAULT;
 	/**
 	 * Applies the current design on an object, but not its children
 	 */
@@ -12,5 +11,6 @@ public abstract interface Designable {
 	 * @param d
 	 */
 	public abstract void setDesign(MyMaterialDesign d);
+	public abstract MyMaterialDesign getDesign();
 
 }

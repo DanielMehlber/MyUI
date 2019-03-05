@@ -9,6 +9,11 @@ import core.MyColor;
 import core.MyContentPage;
 import core.MyFrame;
 import core.MyMaterialDesign;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EtchedBorder;
 
 public class Designer extends MyFrame{
 
@@ -25,11 +30,14 @@ public class Designer extends MyFrame{
 		MyContentPage page = new MyContentPage(getDesign());
 		setContentPage(page);
 		MyButton choose_base = new MyButton(getDesign(), "Choose Base Color");
+		choose_base.setSize(121, 27);
 		choose_base.setLocation(10, 11);
 		MyButton choose_accent = new MyButton(getDesign(), "Choose Accent Color");
-		choose_accent.setLocation(10, 62);
+		choose_accent.setSize(121, 27);
+		choose_accent.setLocation(10, 49);
 		MyButton choose_text = new MyButton(getDesign(), "Choose Text Color");
-		choose_text.setLocation(10, 113);
+		choose_text.setSize(121, 27);
+		choose_text.setLocation(10, 87);
 		
 		page.add(choose_base);
 		page.add(choose_accent);
@@ -64,6 +72,7 @@ public class Designer extends MyFrame{
 				redesign(true);
 			}
 		};
+		
+		
 	}
-	
 }

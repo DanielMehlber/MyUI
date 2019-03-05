@@ -33,4 +33,10 @@ public class MyContentPage extends JPanel implements Designable{
 		
 	}
 
+	@Override
+	public MyMaterialDesign getDesign() {
+		// TODO Auto-generated method stub
+		return design;
+	}
+
 }

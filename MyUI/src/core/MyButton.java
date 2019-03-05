@@ -127,6 +127,12 @@ public class MyButton extends JPanel implements Designable {
 		design.register(this);
 		
 	}
+
+	@Override
+	public MyMaterialDesign getDesign() {
+		// TODO Auto-generated method stub
+		return design;
+	}
 	
 	
 	
