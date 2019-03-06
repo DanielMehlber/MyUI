@@ -17,18 +17,19 @@ public class MyMaterialDesign {
 		BAR, FLAT
 	}
 	
-	public enum BUTTON_COLOR_DESIGN {
-		ACCENT, BASE
-	}
 	
 	public enum BUTTON_DESIGN {
 		FLAT
 	}
 	
+	public enum TOGGLE_BUTTON_DESIGN{
+		FIELD, DOT, CHECKMARK
+	}
+	
 	
 	public FRAME_DESIGN frameTopDesign;
-	public BUTTON_COLOR_DESIGN buttonColorDesign;
 	public BUTTON_DESIGN buttonDesign;
+	public TOGGLE_BUTTON_DESIGN toggleButtonDesign;
 	
 	public final static MyMaterialDesign DEFAULT = new MyMaterialDesign(new MyColor(240,240,240), MyColor.LIGHT_GRAY, MyColor.BLACK);
 	public final static MyMaterialDesign FOX = new MyMaterialDesign(MyColor.DARK_GRAY, MyColor.ORANGE, MyColor.WHITE);
@@ -48,8 +49,8 @@ public class MyMaterialDesign {
 		textColor = text;
 		frameTopDesign = FRAME_DESIGN.FLAT;
 		font = new Font("Tahoma", Font.PLAIN, 10);
-		buttonColorDesign = BUTTON_COLOR_DESIGN.ACCENT;
 		buttonDesign = BUTTON_DESIGN.FLAT;
+		toggleButtonDesign = TOGGLE_BUTTON_DESIGN.FIELD;
 	}
 
 	public MyColor getBaseColor() {

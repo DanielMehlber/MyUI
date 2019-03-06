@@ -12,5 +12,9 @@ public abstract interface Designable {
 	 */
 	public abstract void setDesign(MyMaterialDesign d);
 	public abstract MyMaterialDesign getDesign();
+	/**
+	 * Resets the Designable Component to its design
+	 */
+	public abstract void reset();
 
 }

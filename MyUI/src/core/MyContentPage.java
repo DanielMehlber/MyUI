@@ -39,4 +39,10 @@ public class MyContentPage extends JPanel implements Designable{
 		return design;
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

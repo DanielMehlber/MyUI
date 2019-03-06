@@ -415,5 +415,11 @@ public class MyFrame extends JFrame implements Designable{
 		}else
 			getDesign().apply();
 	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
