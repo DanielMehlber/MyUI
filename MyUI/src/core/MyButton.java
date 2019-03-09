@@ -19,20 +19,20 @@ import javax.swing.SwingConstants;
 public class MyButton extends JPanel implements Designable {
 
 	
-	public MyMaterialDesign design;
-	public Font customFont = null;
-	public MyColor customTextColor = null;
-	public MyColor customColor = null;
-	public JLabel text;
-	public Runnable operator;
+	private MyMaterialDesign design;
+	private Font customFont = null;
+	private MyColor customTextColor = null;
+	private MyColor customColor = null;
+	private JLabel text;
+	private Runnable operator;
 	
-	int shadowGap = 2;
-	int shadowAlpha = 150;
-	Color shadowColor = Color.BLACK;
-	public boolean shady = true;
-	protected Dimension arcs = new Dimension(8, 8);
-	int shadowOffset = 10;
-	int strokeSize = 1;
+	private int shadowGap = 2;
+	private int shadowAlpha = 150;
+	private MyColor shadowColor = MyColor.BLACK;
+	private boolean shady = true;
+	private int cornersRounding = 8;
+	private int shadowOffset = 10;
+	private int strokeSize = 1;
 	
 	/**
 	 * Create the panel.
@@ -87,9 +87,9 @@ public class MyButton extends JPanel implements Designable {
 	@Override
 	public void applyDesign() {
 		
-		text.setFont(getUsedFont());
-		setBackground(getUsedColor().getColor());
-		text.setForeground(getUsedTextColor().getColor());
+		text.setFont(getTextFont());
+		setBackground(getColor().getColor());
+		text.setForeground(getTextColor().getColor());
 	
 	}
 	
@@ -139,7 +139,7 @@ public class MyButton extends JPanel implements Designable {
 		if(e)
 			reset();
 		else
-			customColor = getUsedColor().darker(50);
+			customColor = getColor().darker(50);
 		
 		applyDesign();
 	}
@@ -149,7 +149,7 @@ public class MyButton extends JPanel implements Designable {
 	 * Returns currently used color (design or custom)
 	 * @return
 	 */
-	public MyColor getUsedColor() {
+	public MyColor getColor() {
 		if(customColor == null)
 			return design.accentColor;
 		return customColor;
@@ -160,7 +160,7 @@ public class MyButton extends JPanel implements Designable {
 	 * Returns currently used text color (design or custom)
 	 * @return
 	 */
-	public MyColor getUsedTextColor() {
+	public MyColor getTextColor() {
 		if(customTextColor == null)
 			return design.textColor;
 		return customTextColor;
@@ -171,19 +171,87 @@ public class MyButton extends JPanel implements Designable {
 	 * Returns currently used font (design or custom)
 	 * @return
 	 */
-	public Font getUsedFont() {
+	public Font getTextFont() {
 		if(customFont == null)
 			return design.font;
 		return customFont;
 	}
 	
-	 protected void paintComponent(Graphics g) {
+	
+
+	public void setTextFont(Font customFont) {
+		this.customFont = customFont;
+	}
+
+
+	public void setTextColor(MyColor customTextColor) {
+		this.customTextColor = customTextColor;
+	}
+
+
+	public void setColor(MyColor customColor) {
+		this.customColor = customColor;
+	}
+
+	public int getShadowGap() {
+		return shadowGap;
+	}
+
+	public void setShadowGap(int shadowGap) {
+		this.shadowGap = shadowGap;
+	}
+
+	public int getShadowAlpha() {
+		return shadowAlpha;
+	}
+
+	public void setShadowAlpha(int shadowAlpha) {
+		this.shadowAlpha = shadowAlpha;
+	}
+
+	public MyColor getShadowColor() {
+		return shadowColor;
+	}
+
+	public void setShadowColor(MyColor shadowColor) {
+		this.shadowColor = shadowColor;
+	}
+
+	public boolean isShadow() {
+		return shady;
+	}
+
+	public void setShadow(boolean shady) {
+		this.shady = shady;
+	}
+
+	public int getCornersRounding() {
+		return cornersRounding;
+	}
+
+	public void setCornersRounding(int cornersRounding) {
+		this.cornersRounding = cornersRounding;
+	}
+
+	public int getShadowOffset() {
+		return shadowOffset;
+	}
+
+	public void setShadowOffset(int shadowOffset) {
+		this.shadowOffset = shadowOffset;
+	}
+
+	public Runnable getOperator() {
+		return operator;
+	}
+
+	protected void paintComponent(Graphics g) {
 	       super.paintComponent(g);
 	       int width = getWidth();
 	       int height = getHeight();
 	       int shadowGap = this.shadowGap;
-	       Color shadowColorA = new Color(shadowColor.getRed(),
-	    		   shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
+	       Color shadowColorA = new Color(shadowColor.getColor().getRed(),
+	    		   shadowColor.getColor().getGreen(), shadowColor.getColor().getBlue(), shadowAlpha);
 	       Graphics2D graphics = (Graphics2D) g;
 
 	       
@@ -203,7 +271,7 @@ public class MyButton extends JPanel implements Designable {
 	                   shadowOffset,// Y position
 	                   width - strokeSize - shadowOffset, // width
 	                   height - strokeSize - shadowOffset, // height
-	                   arcs.width, arcs.height);// arc Dimension
+	                   cornersRounding, cornersRounding);// arc Dimension
 	       } else {
 	           shadowGap = 1;
 	       }
@@ -212,11 +280,11 @@ public class MyButton extends JPanel implements Designable {
 	       //Draws the rounded opaque panel with borders.
 	       graphics.setColor(getBackground());
 	       graphics.fillRoundRect(0, 0, width - shadowGap,
-	       height - shadowGap, arcs.width, arcs.height);
+	       height - shadowGap, cornersRounding, cornersRounding);
 	       graphics.setColor(getForeground());
 	       graphics.setStroke(new BasicStroke(strokeSize));
 	       graphics.drawRoundRect(0, 0, width - shadowGap,
-	       height - shadowGap, arcs.width, arcs.height);
+	       height - shadowGap, cornersRounding, cornersRounding);
 
 	       //Sets strokes to default, is better.
 	       graphics.setStroke(new BasicStroke());

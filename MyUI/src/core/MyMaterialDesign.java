@@ -48,7 +48,7 @@ public class MyMaterialDesign {
 		accentColor = accent;
 		textColor = text;
 		frameTopDesign = FRAME_DESIGN.FLAT;
-		font = new Font("Tahoma", Font.PLAIN, 10);
+		font = new Font("Tahoma", Font.BOLD, 12);
 		buttonDesign = BUTTON_DESIGN.FLAT;
 		toggleButtonDesign = TOGGLE_BUTTON_DESIGN.FIELD;
 	}

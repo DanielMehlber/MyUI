@@ -301,6 +301,7 @@ public class MyFrame extends JFrame implements Designable{
 					}
 					
 					setSize(getSize().width, getSize().height - 10);
+					setLocation(getX(), getY() + 3);
 				}
 				
 			}

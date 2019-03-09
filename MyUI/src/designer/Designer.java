@@ -43,35 +43,41 @@ public class Designer extends MyFrame{
 		page.add(choose_accent);
 		page.add(choose_text);
 		
-		choose_base.operator = new Runnable() {
+		choose_base.setOperator(new Runnable() {
 			
 			@Override
 			public void run() {
 				Color c = new JColorChooser().showDialog(null, "Pick the Base Color", getDesign().baseColor.getColor());
+				if(c == null)
+					return;
 				getDesign().baseColor = new MyColor(c);
 				redesign(true);
 			}
-		};
+		});
 		
-		choose_accent.operator = new Runnable() {
+		choose_accent.setOperator(new Runnable() {
 			
 			@Override
 			public void run() {
 				Color c = new JColorChooser().showDialog(null, "Pick the Accent Color", getDesign().accentColor.getColor());
+				if(c == null)
+					return;
 				getDesign().accentColor = new MyColor(c);
 				redesign(true);
 			}
-		};
+		});
 		
-		choose_text.operator = new Runnable() {
+		choose_text.setOperator(new Runnable() {
 			
 			@Override
 			public void run() {
 				Color c = new JColorChooser().showDialog(null, "Pick the Text Color", getDesign().textColor.getColor());
+				if(c == null)
+					return;
 				getDesign().textColor = new MyColor(c);
 				redesign(true);
 			}
-		};
+		});
 		
 		
 	}

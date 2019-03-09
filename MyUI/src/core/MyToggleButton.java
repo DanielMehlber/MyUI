@@ -118,7 +118,7 @@ public class MyToggleButton extends JPanel implements Designable{
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
