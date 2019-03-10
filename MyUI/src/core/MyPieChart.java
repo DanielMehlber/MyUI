@@ -14,7 +14,7 @@ public class MyPieChart extends JPanel{
 
 	private int stroke_thickness = 20;
 	private ArrayList<MyPieChartEntry> entries;
-	private float fac = 1;
+	private float fac = 0;
 	
 	public MyPieChart() {
 		entries = new ArrayList<MyPieChartEntry>();
@@ -81,5 +81,8 @@ public class MyPieChart extends JPanel{
 		t.start();
 	}
 	
+	public void go() {
+		animation(1);
+	}
 	
 }

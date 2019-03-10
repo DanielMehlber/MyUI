@@ -52,6 +52,7 @@ public class Main extends MyFrame{
 		});
 		
 		go(600,600);
+		chart.go();
 	}
 
 }

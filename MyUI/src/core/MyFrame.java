@@ -334,6 +334,7 @@ public class MyFrame extends JFrame implements Designable{
 					}
 					
 					setSize(getSize().width, getSize().height + 10);
+					setLocation(getX(), getY() - 3);
 				}
 				
 			}
@@ -382,7 +383,7 @@ public class MyFrame extends JFrame implements Designable{
 			}
 		});
 		t.start();
-		//while(t.isAlive()) {}
+		while(t.isAlive()) {}
 	}
 	
 	/**
