@@ -206,7 +206,6 @@ public class MyFrame extends JFrame implements Designable{
 
 	@Override
 	public void applyDesign() {
-		System.out.println("APPLY");
 		scene.setBackground(design.getBaseColor().getColor());
 		
 		//FRAME_TOP_DESIGN
