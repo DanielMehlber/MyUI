@@ -8,6 +8,7 @@ import core.MyToggleButton;
 import core.MyMaterialDesign.FRAME_DESIGN;
 import core.MyPieChart;
 import core.MyPieChartEntry;
+import core.MySyncTask;
 import core.MyFrame;
 
 public class Main extends MyFrame{
@@ -51,8 +52,11 @@ public class Main extends MyFrame{
 			}
 		});
 		
+		
 		go(600,600);
 		chart.go();
+		
+		
 	}
 
 }

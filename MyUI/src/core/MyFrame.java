@@ -292,15 +292,9 @@ public class MyFrame extends JFrame implements Designable{
 			@Override
 			public void run() {
 				while(getSize().height > 0) {
-					try {
-						Thread.currentThread().sleep(2);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
+					MySyncTask.sync(250);
 					setSize(getSize().width, getSize().height - 10);
-					setLocation(getX(), getY() + 3);
+					setLocation(getX(), getY() + 5);
 				}
 				
 			}
@@ -325,15 +319,10 @@ public class MyFrame extends JFrame implements Designable{
 			@Override
 			public void run() {
 				while(getSize().height < height) {
-					try {
-						Thread.currentThread().sleep(2);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					MySyncTask.sync(250);
 					
 					setSize(getSize().width, getSize().height + 10);
-					setLocation(getX(), getY() - 3);
+					setLocation(getX(), getY() - 5);
 				}
 				
 			}
@@ -360,22 +349,12 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				setSize(100, top.getSize().height);
 				while(getSize().width < width) {
-					try {
-						Thread.currentThread().sleep(2);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					MySyncTask.sync(250);
 					setSize(getSize().width + 10, getSize().height);
 				}
 				
 				while(getSize().height < height) {
-					try {
-						Thread.currentThread().sleep(2);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					MySyncTask.sync(250);
 					setSize(getSize().width, getSize().height + 10);
 				}
 				

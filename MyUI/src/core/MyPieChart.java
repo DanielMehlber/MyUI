@@ -52,18 +52,18 @@ public class MyPieChart extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
 		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY));
+		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		g2d.setStroke(new BasicStroke(stroke_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g2d.setColor(Color.darkGray);
 		g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, 360);
 		for(MyPieChartEntry entry : entries) {
-			g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 			g2d.setColor(entry.getColor().getColor());
 			g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, (int) (-360f/100f*entry.getPercent()*fac));
 		}
 		
 	}
 	
-	public void animation(int speed) {
+	public void animation(double speed) {
 		Thread t = new Thread(new Runnable() {
 			
 			@Override
@@ -71,12 +71,7 @@ public class MyPieChart extends JPanel{
 				fac = 0;
 				while(fac < 1) {
 					fac+=0.01;
-					try {
-						Thread.currentThread().sleep(8 * speed);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					MySyncTask.sync((int) (100*speed));
 					repaint();
 				}
 				fac = 1;
