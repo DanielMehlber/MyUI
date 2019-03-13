@@ -19,9 +19,13 @@ public class Main extends MyFrame{
 	
 	
 	public Main() {
-		super(MyMaterialDesign.FOX);
+		MyMaterialDesign design = MyMaterialDesign.FOX;
+		design.frameTopDesign = FRAME_DESIGN.BAR;
+		setDesign(design);
+		design.apply();
 		setTitle("Test");
 		setBounds(100,100,600,600);
+		
 		
 		MyContentPage page = new MyContentPage(getDesign());
 		setContentPage(page);
