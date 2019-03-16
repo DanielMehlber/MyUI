@@ -2,21 +2,13 @@ package core;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-
-import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-
 import javax.swing.JLabel;
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
