@@ -9,6 +9,7 @@ import core.MyMaterialDesign.FRAME_DESIGN;
 import core.MyPieChart;
 import core.MyPieChartEntry;
 import core.MySyncTask;
+import core.MyTextEntry;
 import core.MyFrame;
 
 public class Main extends MyFrame{
@@ -20,7 +21,7 @@ public class Main extends MyFrame{
 	
 	public Main() {
 		MyMaterialDesign design = MyMaterialDesign.FOX;
-		design.frameTopDesign = FRAME_DESIGN.BAR;
+		design.frameTopDesign = FRAME_DESIGN.FLAT;
 		setDesign(design);
 		design.apply();
 		setTitle("Test");
@@ -56,6 +57,14 @@ public class Main extends MyFrame{
 			}
 		});
 		
+		
+		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MODE.NORMAL);
+		text.setLocation(36, 112);
+		text.setSize(203, 48);
+		page.add(text);
+		text.setVisible(true);
+		text.setFont(text.getFont().deriveFont(18f));
+		text.setSubtext("Please enter your Name");
 		
 		go(600,600);
 		chart.go();
