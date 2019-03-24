@@ -15,6 +15,7 @@ public class MyProgessChart extends JPanel{
 	private int stroke_thickness = 30;
 	private ArrayList<MyChartEntry> entries;
 	private float fac = 0;
+	boolean animation_running = false;
 	
 	public MyProgessChart() {
 		entries = new ArrayList<MyChartEntry>();
@@ -66,14 +67,22 @@ public class MyProgessChart extends JPanel{
 			
 			@Override
 			public void run() {
+				
+				while(animation_running)
+					System.out.println("");
+				
 				fac = 0;
+				double i = 0;
+				animation_running = true;
 				while(fac < 1) {
-					fac+=0.01;
+					fac = (float) (0.5 * Math.sin(i - Math.PI / 2) + 0.51);
+					i += 0.01;
 					MySyncTask.sync((int) (100*speed));
 					repaint();
 				}
 				fac = 1;
 				repaint();
+				animation_running = false;
 			}
 		});
 		
