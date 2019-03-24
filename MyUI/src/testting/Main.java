@@ -6,8 +6,8 @@ import core.MyContentPage;
 import core.MyMaterialDesign;
 import core.MyToggleButton;
 import core.MyMaterialDesign.FRAME_DESIGN;
-import core.MyPieChart;
-import core.MyPieChartEntry;
+import core.MyProgessChart;
+import core.MyChartEntry;
 import core.MySyncTask;
 import core.MyTextEntry;
 import core.MyFrame;
@@ -31,15 +31,15 @@ public class Main extends MyFrame{
 		MyContentPage page = new MyContentPage(getDesign());
 		setContentPage(page);
 		
-		MyPieChart chart = new MyPieChart();
+		MyProgessChart chart = new MyProgessChart();
 		chart.setLocation(104, 290);
 		page.add(chart);
 		chart.setSize(168, 169);
-		chart.add(new MyPieChartEntry(10, MyColor.GREEN));
-		chart.add(new MyPieChartEntry(90, MyColor.RED));
-		chart.add(new MyPieChartEntry(50, MyColor.YELLOW));
-		chart.add(new MyPieChartEntry(60, MyColor.BLUE));
-		chart.add(new MyPieChartEntry(30, MyColor.CYAN));
+		chart.add(new MyChartEntry(10, MyColor.GREEN));
+		chart.add(new MyChartEntry(90, MyColor.RED));
+		chart.add(new MyChartEntry(50, MyColor.YELLOW));
+		chart.add(new MyChartEntry(60, MyColor.BLUE));
+		chart.add(new MyChartEntry(30, MyColor.CYAN));
 		
 		MyToggleButton tbtn = new MyToggleButton(getDesign(), true);
 		page.add(tbtn);

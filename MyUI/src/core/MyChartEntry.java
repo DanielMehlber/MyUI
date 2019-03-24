@@ -1,11 +1,11 @@
 package core;
 
-public class MyPieChartEntry implements Comparable<MyPieChartEntry>{
+public class MyChartEntry implements Comparable<MyChartEntry>{
 
 	private MyColor color;
 	private int percent;
 	
-	public MyPieChartEntry(int _percent, MyColor _color) {
+	public MyChartEntry(int _percent, MyColor _color) {
 		color = _color;
 		percent = _percent;
 	}
@@ -27,7 +27,7 @@ public class MyPieChartEntry implements Comparable<MyPieChartEntry>{
 	}
 
 	@Override
-	public int compareTo(MyPieChartEntry o) {
+	public int compareTo(MyChartEntry o) {
 		int r = o.percent-percent;
 		return r;
 	}

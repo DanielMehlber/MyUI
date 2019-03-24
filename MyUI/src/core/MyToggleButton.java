@@ -8,6 +8,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+//TODO: Enable & Disable
+//TODO: Status (invalid input, checking)
+
+
 public class MyToggleButton extends JPanel implements Designable{
 
 	public MyMaterialDesign design;

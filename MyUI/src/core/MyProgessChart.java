@@ -10,26 +10,25 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
-public class MyPieChart extends JPanel{
+public class MyProgessChart extends JPanel{
 
 	private int stroke_thickness = 30;
-	private ArrayList<MyPieChartEntry> entries;
+	private ArrayList<MyChartEntry> entries;
 	private float fac = 0;
 	
-	public MyPieChart() {
-		entries = new ArrayList<MyPieChartEntry>();
+	public MyProgessChart() {
+		entries = new ArrayList<MyChartEntry>();
 		super.setOpaque(false);
 	}
 	
-	public void add(MyPieChartEntry entry) {
+	public void add(MyChartEntry entry) {
 		entries.add(entry);
-		Collections.sort(entries);
+		go();
 	}
 	
 	public void add(int percent, MyColor color) {
-		add(new MyPieChartEntry(percent, color));
+		add(new MyChartEntry(percent, color));
 	}
-	
 	
 	
 	public int getStrokeThickness() {
@@ -41,7 +40,7 @@ public class MyPieChart extends JPanel{
 	}
 
 
-	public void setEntries(ArrayList<MyPieChartEntry> entries) {
+	public void setEntries(ArrayList<MyChartEntry> entries) {
 		this.entries = entries;
 	}
 
@@ -55,7 +54,7 @@ public class MyPieChart extends JPanel{
 		g2d.setStroke(new BasicStroke(stroke_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g2d.setColor(Color.darkGray);
 		g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, 360);
-		for(MyPieChartEntry entry : entries) {
+		for(MyChartEntry entry : entries) {
 			g2d.setColor(entry.getColor().getColor());
 			g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, (int) (-360f/100f*entry.getPercent()*fac));
 		}
@@ -82,7 +81,13 @@ public class MyPieChart extends JPanel{
 	}
 	
 	public void go() {
+		Collections.sort(entries);
 		animation(1);
 	}
+	
+	public ArrayList<MyChartEntry> getChartEntries(){
+		return entries;
+	}
+
 	
 }
