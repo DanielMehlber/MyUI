@@ -1,8 +1,7 @@
 package core;
 
-public class MySyncTask{
+public class MySyncTask extends MyTask{
 	
-	private Runnable runnable;
 	private int ups;
 	private Thread thread;
 	private long delay_time;
@@ -10,8 +9,8 @@ public class MySyncTask{
 	
 	
 	public MySyncTask(Runnable _action) {
+		super(_action);
 		setUps(1);
-		runnable = _action;
 		thread = new Thread(new Runnable() {
 			
 			@Override
@@ -76,6 +75,12 @@ public class MySyncTask{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void fire() {
+		start();
+		
 	}
 	
 	

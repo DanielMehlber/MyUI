@@ -85,7 +85,7 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				animation_close_window();
+				animation_close_window(true);
 				System.exit(0);
 				
 			}
@@ -291,9 +291,10 @@ public class MyFrame extends JFrame implements Designable{
 			}
 		});
 		
-		t.start();
-		if(wait)
-			while(t.isAlive()) {MySyncTask.sleep(1);}
+		if(!wait)
+			t.start();
+		else
+			t.run();
 	}
 	
 	/**
@@ -317,9 +318,11 @@ public class MyFrame extends JFrame implements Designable{
 			}
 		});
 		
-		t.start();
-		if(wait)
-			while(t.isAlive()) {MySyncTask.sleep(1);}
+		if(!wait)
+			t.start();
+		else
+			t.run();
+	
 	}
 	
 	/**
@@ -343,9 +346,10 @@ public class MyFrame extends JFrame implements Designable{
 			}
 		});
 		
-		t.start();
-		if(wait)
-			while(t.isAlive()) {MySyncTask.sleep(1);}
+		if(!wait)
+			t.start();
+		else
+			t.run();
 	}
 	
 	/**
@@ -367,10 +371,11 @@ public class MyFrame extends JFrame implements Designable{
 				
 			}
 		});
+		if(!wait)
+			t.start();
+		else
+			t.run();
 		
-		t.start();
-		if(wait)
-			while(t.isAlive()) {MySyncTask.sleep(1);}
 	}
 	
 	/**
@@ -378,7 +383,7 @@ public class MyFrame extends JFrame implements Designable{
 	 * @param width Width
 	 * @param height Height
 	 */
-	public void animation_open_window(int width, int height) {
+	public void animation_open_window(int width, int height, boolean wait) {
 		if(!animsEnabled) {
 			setSize(width, height);
 			return;
@@ -400,8 +405,10 @@ public class MyFrame extends JFrame implements Designable{
 				
 			}
 		});
-		t.start();
-		while(t.isAlive()) {MySyncTask.sleep(1);}
+		if(!wait)
+			t.start();
+		else
+			t.run();
 	}
 	
 	/**
@@ -409,7 +416,7 @@ public class MyFrame extends JFrame implements Designable{
 	 * @param width Width
 	 * @param height Height
 	 */
-	public void animation_close_window() {
+	public void animation_close_window(boolean wait) {
 		if(!animsEnabled) {
 			setSize(0, 0);
 			return;
@@ -432,8 +439,10 @@ public class MyFrame extends JFrame implements Designable{
 				
 			}
 		});
-		t.start();
-		while(t.isAlive()) {MySyncTask.sleep(1);}
+		if(!wait)
+			t.start();
+		else
+			t.run();
 	}
 	
 	/**
@@ -451,7 +460,7 @@ public class MyFrame extends JFrame implements Designable{
 	 * @param height Height
 	 */
 	public void go(int width, int height) {
-		animation_open_window(width, height);
+		animation_open_window(width, height, true);
 	}
 	
 	/**
