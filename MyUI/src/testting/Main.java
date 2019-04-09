@@ -58,7 +58,7 @@ public class Main extends MyFrame{
 		});
 		
 		
-		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MODE.NORMAL);
+		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
 		text.setLocation(36, 112);
 		text.setSize(203, 48);
 		page.add(text);

@@ -27,15 +27,15 @@ public class MyTextEntry extends JPanel implements Designable{
 	private int subtextOffsetY = 8;
 	private int subtextOffsetX;
 	
-	public enum MODE {
+	public enum MY_TEXT_ENTRY_MODE {
 		NORMAL, PASSWORD
 	}
 	
-	private MODE mode;
+	private MY_TEXT_ENTRY_MODE mode;
 	/**
 	 * Create the panel.
 	 */
-	public MyTextEntry(MyMaterialDesign design, MODE mode) {
+	public MyTextEntry(MyMaterialDesign design, MY_TEXT_ENTRY_MODE mode) {
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		this.mode = mode;
@@ -61,7 +61,7 @@ public class MyTextEntry extends JPanel implements Designable{
 	}
 	
 	public MyTextEntry(MyMaterialDesign design) {
-		this(design, MODE.NORMAL);
+		this(design, MY_TEXT_ENTRY_MODE.NORMAL);
 	}
 
 	@Override
