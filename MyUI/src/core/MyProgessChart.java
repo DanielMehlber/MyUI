@@ -63,13 +63,13 @@ public class MyProgessChart extends JPanel{
 	}
 	
 	public void animation(double speed) {
+		if(animation_running)
+			return;
 		Thread t = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				
-				while(animation_running)
-					System.out.println("");
+			
 				
 				fac = 0;
 				double i = 0;

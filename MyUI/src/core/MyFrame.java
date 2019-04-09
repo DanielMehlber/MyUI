@@ -85,7 +85,7 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				animation_roll_in(true);
+				animation_close_window();
 				System.exit(0);
 				
 			}
@@ -273,10 +273,10 @@ public class MyFrame extends JFrame implements Designable{
 	}
 	
 	/**
-	 * Plays the rolling in animation
+	 * Plays the snapping-in animation
 	 * @param wait should the program wait till the animation finishes ?
 	 */
-	public void animation_roll_in(boolean wait) {
+	public void animation_snap_in(boolean wait) {
 		if(!animsEnabled)
 			return;
 		Thread t = new Thread(new Runnable() {
@@ -284,9 +284,8 @@ public class MyFrame extends JFrame implements Designable{
 			@Override
 			public void run() {
 				while(getSize().height > 0) {
-					MySyncTask.sync(250);
-					setSize(getSize().width, getSize().height - 10);
-					setLocation(getX(), getY() + 5);
+					MySyncTask.sync(120);
+					setBounds(getX(), getY() + 20 / 2, getWidth(), getHeight() - 40 / 2);
 				}
 				
 			}
@@ -294,11 +293,37 @@ public class MyFrame extends JFrame implements Designable{
 		
 		t.start();
 		if(wait)
-			while(t.isAlive()) {}
+			while(t.isAlive()) {MySyncTask.sleep(1);}
 	}
 	
 	/**
-	 * Plays the rolling out animation
+	 * Plays the snapping-out animation
+	 * @param height The end-height
+	 * @param wait should the program wait till the animation finishes ?
+	 */
+	public void animation_snap_out(int height, boolean wait) {
+		if(!animsEnabled)
+			return;
+		setSize(getSize().width, 0);
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(getSize().height < height) {
+					MySyncTask.sync(120);
+					setBounds(getX(), getY() - 20 / 2, getWidth(), getHeight()+40 / 2);
+				}
+				
+			}
+		});
+		
+		t.start();
+		if(wait)
+			while(t.isAlive()) {MySyncTask.sleep(1);}
+	}
+	
+	/**
+	 * Plays the roll-out animation
 	 * @param height The end-height
 	 * @param wait should the program wait till the animation finishes ?
 	 */
@@ -311,10 +336,8 @@ public class MyFrame extends JFrame implements Designable{
 			@Override
 			public void run() {
 				while(getSize().height < height) {
-					MySyncTask.sync(250);
-					
-					setSize(getSize().width, getSize().height + 10);
-					setLocation(getX(), getY() - 5);
+					MySyncTask.sync(120);
+					setSize(getWidth(), getHeight() + 20);
 				}
 				
 			}
@@ -322,7 +345,32 @@ public class MyFrame extends JFrame implements Designable{
 		
 		t.start();
 		if(wait)
-			while(t.isAlive()) {}
+			while(t.isAlive()) {MySyncTask.sleep(1);}
+	}
+	
+	/**
+	 * Plays the roll-out animation
+	 * @param height The end-height
+	 * @param wait should the program wait till the animation finishes ?
+	 */
+	public void animation_roll_in(boolean wait) {
+		if(!animsEnabled)
+			return;
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(getSize().height > 0) {
+					MySyncTask.sync(120);
+					setSize(getWidth(), getHeight() - 20);
+				}
+				
+			}
+		});
+		
+		t.start();
+		if(wait)
+			while(t.isAlive()) {MySyncTask.sleep(1);}
 	}
 	
 	/**
@@ -341,19 +389,51 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				setSize(100, top.getSize().height);
 				while(getSize().width < width) {
-					MySyncTask.sync(250);
-					setSize(getSize().width + 10, getSize().height);
+					MySyncTask.sync(120);
+					setSize(getSize().width + 20, getSize().height);
 				}
 				
 				while(getSize().height < height) {
-					MySyncTask.sync(250);
-					setSize(getSize().width, getSize().height + 10);
+					MySyncTask.sync(120);
+					setSize(getSize().width, getSize().height + 20);
 				}
 				
 			}
 		});
 		t.start();
-		while(t.isAlive()) {}
+		while(t.isAlive()) {MySyncTask.sleep(1);}
+	}
+	
+	/**
+	 * Plays the close window animation
+	 * @param width Width
+	 * @param height Height
+	 */
+	public void animation_close_window() {
+		if(!animsEnabled) {
+			setSize(0, 0);
+			return;
+		}
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				while(getSize().height > top.getHeight()) {
+					MySyncTask.sync(120);
+					setSize(getSize().width, getSize().height - 20);
+				}
+				
+				while(getSize().width > 0) {
+					MySyncTask.sync(120);
+					setSize(getSize().width - 20, getSize().height);
+				}
+				
+				
+			}
+		});
+		t.start();
+		while(t.isAlive()) {MySyncTask.sleep(1);}
 	}
 	
 	/**

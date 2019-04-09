@@ -25,7 +25,7 @@ public class Main extends MyFrame{
 		setDesign(design);
 		design.apply();
 		setTitle("Test");
-		setBounds(100,100,600,600);
+		//setBounds(100,100,600,600);
 		
 		
 		MyContentPage page = new MyContentPage(getDesign());

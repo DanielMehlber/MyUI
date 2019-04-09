@@ -69,6 +69,15 @@ public class MySyncTask{
 		while(System.nanoTime() - start_time < 1000000000l / _ups) {}
 	}
 	
+	public static void sleep(long millis) {
+		try {
+			Thread.currentThread().sleep(millis);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 }
