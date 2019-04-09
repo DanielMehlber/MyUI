@@ -24,7 +24,6 @@ public class MyProgessChart extends JPanel{
 	
 	public void add(MyChartEntry entry) {
 		entries.add(entry);
-		go();
 	}
 	
 	public void add(int percent, MyColor color) {
