@@ -29,7 +29,7 @@ public class MyButton extends JPanel implements Designable {
 	private int shadowAlpha = 150;
 	private MyColor shadowColor = MyColor.BLACK;
 	private boolean shady = true;
-	private int cornersRounding = 8;
+	private int roundness = 10;
 	private int shadowOffset = 10;
 	private int strokeSize = 1;
 	
@@ -225,11 +225,11 @@ public class MyButton extends JPanel implements Designable {
 	}
 
 	public int getCornersRounding() {
-		return cornersRounding;
+		return roundness;
 	}
 
 	public void setCornersRounding(int cornersRounding) {
-		this.cornersRounding = cornersRounding;
+		this.roundness = cornersRounding;
 	}
 
 	public int getShadowOffset() {
@@ -270,7 +270,7 @@ public class MyButton extends JPanel implements Designable {
 	                   shadowOffset,// Y position
 	                   width - strokeSize - shadowOffset, // width
 	                   height - strokeSize - shadowOffset, // height
-	                   cornersRounding, cornersRounding);// arc Dimension
+	                   roundness, roundness);// arc Dimension
 	       } else {
 	           shadowGap = 1;
 	       }
@@ -279,14 +279,19 @@ public class MyButton extends JPanel implements Designable {
 	       //Draws the rounded opaque panel with borders.
 	       graphics.setColor(getBackground());
 	       graphics.fillRoundRect(0, 0, width - shadowGap,
-	       height - shadowGap, cornersRounding, cornersRounding);
+	       height - shadowGap, roundness, roundness);
 	       graphics.setColor(getForeground());
 	       graphics.setStroke(new BasicStroke(strokeSize));
 	       graphics.drawRoundRect(0, 0, width - shadowGap,
-	       height - shadowGap, cornersRounding, cornersRounding);
+	       height - shadowGap, roundness, roundness);
 
 	       //Sets strokes to default, is better.
 	       graphics.setStroke(new BasicStroke());
 	   }
+	
+	void setRoundness(int _roundness) {
+		roundness = _roundness;
+	}
+	
 	
 }
