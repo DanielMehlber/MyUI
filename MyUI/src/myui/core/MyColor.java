@@ -1,10 +1,9 @@
-package core;
+package myui.core;
 
 import java.awt.Color;
 
-public class MyColor {
+public class MyColor extends Color{
 
-	private Color color;
 	public final static MyColor BLACK = new MyColor(0,0,0);
 	public final static MyColor WHITE = new MyColor(255,255,255);
 	public final static MyColor RED = new MyColor(255,0,0);
@@ -27,25 +26,22 @@ public class MyColor {
 	
 	
 	public MyColor() {
-		color = MyColor.BLACK.getColor();
+		super(0,0,0);
 	}
 	
 	public MyColor(int r ,int g, int b) {
-		color = new Color(r,g,b);
+		super(r,g,b);
 	}
 	
 	public MyColor(Color c) {
-		color = c;
+		super(c.getRed(), c.getGreen() ,c.getBlue());
 	}
 	
-	public Color getColor() {
-		return color;
-	}
 	
 	public MyColor darker(int i) {
-		int r = color.getRed();
-		int g = color.getGreen();
-		int b = color.getBlue();
+		int r = getRed();
+		int g = getGreen();
+		int b = getBlue();
 		int delta_r = r - i;
 		int delta_g = g - i;
 		int delta_b = b - i;
@@ -57,6 +53,28 @@ public class MyColor {
 			delta_b = i - delta_b;
 		
 		return new MyColor(new Color(delta_r, delta_g, delta_b));
+	}
+	
+	public MyColor lighter(int i) {
+		int r = getRed();
+		int g = getGreen();
+		int b = getBlue();
+		int delta_r = r + i;
+		int delta_g = g + i;
+		int delta_b = b + i;
+		if(delta_r > 255)
+			delta_r = i + delta_r;
+		if(delta_g > 255)
+			delta_g = i + delta_g;
+		if(delta_b > 255)
+			delta_b = i + delta_b;
+		
+		return new MyColor(new Color(delta_r, delta_g, delta_b));
+	}
+	
+	@Override
+	public String toString() {
+		return "Color:"+getRed()+","+getGreen()+","+getBlue();
 	}
 
 }

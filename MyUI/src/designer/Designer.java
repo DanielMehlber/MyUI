@@ -3,16 +3,17 @@ package designer;
 import java.awt.Color;
 
 import javax.swing.JColorChooser;
-
-import core.MyButton;
-import core.MyColor;
-import core.MyContentPage;
-import core.MyFrame;
-import core.MyMaterialDesign;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+
+import myui.core.MyButton;
+import myui.core.MyColor;
+import myui.core.MyPage;
+import myui.core.MyFrame;
+import myui.core.MyMaterialDesign;
+
 import javax.swing.border.EtchedBorder;
 
 public class Designer extends MyFrame{
@@ -27,7 +28,7 @@ public class Designer extends MyFrame{
 		setBounds(100,100,500,500);
 		go(600,600);
 		
-		MyContentPage page = new MyContentPage(getDesign());
+		MyPage page = new MyPage(getDesign());
 		setContentPage(page);
 		MyButton choose_base = new MyButton(getDesign(), "Choose Base Color");
 		choose_base.setSize(121, 27);
@@ -47,7 +48,7 @@ public class Designer extends MyFrame{
 			
 			@Override
 			public void run() {
-				Color c = new JColorChooser().showDialog(null, "Pick the Base Color", getDesign().baseColor.getColor());
+				Color c = new JColorChooser().showDialog(null, "Pick the Base Color", getDesign().baseColor);
 				if(c == null)
 					return;
 				getDesign().baseColor = new MyColor(c);
@@ -59,7 +60,7 @@ public class Designer extends MyFrame{
 			
 			@Override
 			public void run() {
-				Color c = new JColorChooser().showDialog(null, "Pick the Accent Color", getDesign().accentColor.getColor());
+				Color c = new JColorChooser().showDialog(null, "Pick the Accent Color", getDesign().accentColor);
 				if(c == null)
 					return;
 				getDesign().accentColor = new MyColor(c);
@@ -71,7 +72,7 @@ public class Designer extends MyFrame{
 			
 			@Override
 			public void run() {
-				Color c = new JColorChooser().showDialog(null, "Pick the Text Color", getDesign().textColor.getColor());
+				Color c = new JColorChooser().showDialog(null, "Pick the Text Color", getDesign().textColor);
 				if(c == null)
 					return;
 				getDesign().textColor = new MyColor(c);

@@ -1,14 +1,31 @@
-package core;
+package myui.core;
 
 import java.awt.Font;
 import java.util.ArrayList;
 
 public class MyMaterialDesign {
 
+	/**
+	 * Background color
+	 */
 	public MyColor baseColor;
+	/**
+	 * Foreground Color
+	 */
 	public MyColor accentColor;
+	/**
+	 * Text Color
+	 */
 	public MyColor textColor;
+	/**
+	 * Background color of dialog
+	 */
+	public MyColor dialogBaseColor = MyColor.WHITE;
 	
+	/**
+	 * Roundness of dialog box
+	 */
+	public int dialogRoundness = 10;
 	public Font font;
 	
 	ArrayList<Designable> users = new ArrayList<Designable>();

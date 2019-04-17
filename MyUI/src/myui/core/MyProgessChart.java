@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -10,14 +10,16 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
-public class MyProgessChart extends JPanel{
+public class MyProgessChart extends JPanel implements Designable{
 
 	private int stroke_thickness = 30;
 	private ArrayList<MyChartEntry> entries;
 	private float fac = 0;
 	boolean animation_running = false;
+	MyMaterialDesign design;
 	
-	public MyProgessChart() {
+	public MyProgessChart(MyMaterialDesign _design) {
+		design = _design;
 		entries = new ArrayList<MyChartEntry>();
 		super.setOpaque(false);
 	}
@@ -52,10 +54,10 @@ public class MyProgessChart extends JPanel{
 		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY));
 		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		g2d.setStroke(new BasicStroke(stroke_thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g2d.setColor(Color.darkGray);
+		g2d.setColor(design.baseColor);
 		g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, 360);
 		for(MyChartEntry entry : entries) {
-			g2d.setColor(entry.getColor().getColor());
+			g2d.setColor(entry.getColor());
 			g2d.drawArc(0+stroke_thickness, 0+stroke_thickness, getWidth() - stroke_thickness*2, getHeight() - stroke_thickness*2, 90, (int) (-360f/100f*entry.getPercent()*fac));
 		}
 		
@@ -95,6 +97,29 @@ public class MyProgessChart extends JPanel{
 	
 	public ArrayList<MyChartEntry> getChartEntries(){
 		return entries;
+	}
+
+	@Override
+	public void applyDesign() {
+		
+	}
+
+	@Override
+	public void setDesign(MyMaterialDesign d) {
+		design = d;
+		
+	}
+
+	@Override
+	public MyMaterialDesign getDesign() {
+		// TODO Auto-generated method stub
+		return design;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

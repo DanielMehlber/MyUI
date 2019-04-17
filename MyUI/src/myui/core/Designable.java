@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 public abstract interface Designable {
 

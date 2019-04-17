@@ -1,16 +1,20 @@
 package testting;
 
-import core.MyButton;
-import core.MyColor;
-import core.MyContentPage;
-import core.MyMaterialDesign;
-import core.MyToggleButton;
-import core.MyMaterialDesign.FRAME_DESIGN;
-import core.MyProgessChart;
-import core.MyChartEntry;
-import core.MySyncTask;
-import core.MyTextEntry;
-import core.MyFrame;
+import java.awt.Color;
+
+import myui.core.MyButton;
+import myui.core.MyChartEntry;
+import myui.core.MyColor;
+import myui.core.MyPage;
+import myui.core.MyDialog;
+import myui.core.MyDirection;
+import myui.core.MyFrame;
+import myui.core.MyMaterialDesign;
+import myui.core.MyProgessChart;
+import myui.core.MySyncTask;
+import myui.core.MyTextEntry;
+import myui.core.MyToggleButton;
+import myui.core.MyMaterialDesign.FRAME_DESIGN;
 
 public class Main extends MyFrame{
 
@@ -23,15 +27,22 @@ public class Main extends MyFrame{
 		MyMaterialDesign design = MyMaterialDesign.FOX;
 		design.frameTopDesign = FRAME_DESIGN.FLAT;
 		setDesign(design);
+		design.font = design.font.deriveFont(15f);
 		design.apply();
 		setTitle("Test");
-		//setBounds(100,100,600,600);
+		setBounds(100,100,600,600);
 		
-		
-		MyContentPage page = new MyContentPage(getDesign());
+		MyPage page = new MyPage(getDesign());
 		setContentPage(page);
 		
-		MyProgessChart chart = new MyProgessChart();
+		MyPage next = new MyPage(MyMaterialDesign.SEA);
+		
+		MyDialog dialog = new MyDialog(getDesign());
+		dialog.setLocation(277, 112);
+		page.add(dialog);
+		dialog.setSize(240,108);
+		
+		MyProgessChart chart =  new MyProgessChart(getDesign());
 		chart.setLocation(104, 290);
 		page.add(chart);
 		chart.setSize(168, 169);
@@ -47,12 +58,13 @@ public class Main extends MyFrame{
 		
 		MyButton btn = new MyButton(getDesign(), "PRESS ME");
 		btn.setLocation(36, 61);
+		btn.setShadow(true);
 		page.add(btn);
 		btn.setOperator(new Runnable() {
 			
 			@Override
 			public void run() {
-				chart.animation(1);
+				changePage(next, MyDirection.SOUTH);
 				
 			}
 		});
@@ -60,18 +72,18 @@ public class Main extends MyFrame{
 		
 		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
 		text.setLocation(36, 112);
-		text.setSize(203, 48);
+		text.setSize(203, 60);
 		page.add(text);
 		text.setVisible(true);
 		text.setFont(text.getFont().deriveFont(18f));
 		text.setSubtext("Please enter your Name");
+		
 		
 		go(600,600);
 		chart.go();
 		
 		
 	}
-
 }
 
 

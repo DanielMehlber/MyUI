@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -34,6 +34,7 @@ public class MyTextEntry extends JPanel implements Designable{
 	private MY_TEXT_ENTRY_MODE mode;
 	/**
 	 * Create the panel.
+	 * @wbp.parser.constructor
 	 */
 	public MyTextEntry(MyMaterialDesign design, MY_TEXT_ENTRY_MODE mode) {
 		setOpaque(false);
@@ -56,8 +57,10 @@ public class MyTextEntry extends JPanel implements Designable{
 		add(entry);
 		setDesign(design);
 		reset();
+		
 		verticalStrut = Box.createVerticalStrut(getFontMetrics(getFont().deriveFont(subtextSize)).getHeight() + subtextOffsetY + 4);
 		add(verticalStrut, BorderLayout.SOUTH);
+		
 	}
 	
 	public MyTextEntry(MyMaterialDesign design) {
@@ -70,20 +73,19 @@ public class MyTextEntry extends JPanel implements Designable{
 			return;
 		
 		//Set Background
-		setBackground(design.getBaseColor().getColor());
-		entry.setBackground(design.getBaseColor().getColor());
+		setBackground(design.getBaseColor());
+		entry.setBackground(design.getBaseColor());
 		
 		//Set Text Color
 		MyColor tc = design.getTextColor();
 		if(textColor != null)
 			tc = textColor;
-		entry.setForeground(tc.getColor());
+		entry.setForeground(tc);
 		
 		//Set Text Font
 		Font f = design.font;
 		if(super.getFont() != null) {
 			f = super.getFont();
-			System.out.println(f.getSize()); //TODO
 		}
 		entry.setFont(f);
 		
@@ -130,7 +132,6 @@ public class MyTextEntry extends JPanel implements Designable{
 	public void setFont(Font font) {
 		System.out.println(font);
 		super.setFont(font);
-		System.out.println(super.getFont());
 		applyDesign();
 	}
 	
@@ -138,7 +139,7 @@ public class MyTextEntry extends JPanel implements Designable{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(getColor().getColor());
+		g2d.setColor(getColor());
 		g2d.setStroke(new BasicStroke(lineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
 		g2d.drawLine(0, entry.getHeight() + 2, getWidth(), entry.getHeight()+2);
 		g2d.setFont(design.font.deriveFont(subtextSize));

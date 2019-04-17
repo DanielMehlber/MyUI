@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 import javax.swing.JPanel;
 
@@ -17,21 +17,72 @@ import javax.swing.SwingConstants;
 
 public class MyButton extends JPanel implements Designable {
 
-	
+	/**
+	 * Design of the Component
+	 */
 	private MyMaterialDesign design;
+	
+	/**
+	 * Custom font to be used instead
+	 */
 	private Font customFont = null;
+	
+	/**
+	 * Custom text color to be used instead
+	 */
 	private MyColor customTextColor = null;
+	
+	/**
+	 * Custom Button color to be used instead
+	 */
 	private MyColor customColor = null;
+	
+	/**
+	 * Label printed on the button
+	 */
 	private JLabel text;
+	
+	/**
+	 * Runs at click
+	 */
 	private Runnable operator;
 	
-	private int shadowGap = 2;
-	private int shadowAlpha = 150;
+	/**
+	 * Controlles the Gap between Button and Shadow
+	 */
+	private int shadowGap = 1;
+	/**
+	 * Alpha value of Shadow
+	 */
+	private int shadowAlpha = 50;
+	/**
+	 * Color of Shadow
+	 */
 	private MyColor shadowColor = MyColor.BLACK;
+	/**
+	 * has Shadow ?
+	 */
 	private boolean shady = true;
+	/**
+	 * Controlles the corner rounding of the button
+	 */
 	private int roundness = 10;
-	private int shadowOffset = 10;
+	/**
+	 * X Offset of Shadow
+	 */
+	private int shadowXOffset = 0;
+	/**
+	 * Y Offset of Shadow
+	 */
+	private int shadowYOffset = 3;
+	/**
+	 * Thickness of stroke
+	 */
 	private int strokeSize = 1;
+	/**
+	 * Restoration value (temporary)
+	 */
+	private int restore_shadow_gap;
 	
 	/**
 	 * Create the panel.
@@ -49,18 +100,12 @@ public class MyButton extends JPanel implements Designable {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(!isEnabled())
-					return;
-				setBackground(design.accentColor.getColor());
-				if(operator != null)
-					operator.run();
+				release();
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(!isEnabled())
-					return;
-				setBackground(design.accentColor.darker(40).getColor());
+				press();
 				
 			}
 			
@@ -87,15 +132,23 @@ public class MyButton extends JPanel implements Designable {
 	public void applyDesign() {
 		
 		text.setFont(getTextFont());
-		setBackground(getColor().getColor());
-		text.setForeground(getTextColor().getColor());
+		setBackground(getColor());
+		text.setForeground(getTextColor());
+		repaint();
 	
 	}
 	
+	/**
+	 * Sets the text of the button
+	 * @param text 
+	 */
 	public void setText(String text) {
 		this.text.setText(text);
 	}
-	
+	/**
+	 * Returns the text of Button
+	 * @return text
+	 */
 	public String getText() {
 		return text.getText();
 	}
@@ -131,7 +184,9 @@ public class MyButton extends JPanel implements Designable {
 		return design;
 	}
 	
-	
+	/**
+	 * Enables or Disables the button
+	 */
 	public void setEnabled(boolean e) {
 		super.setEnabled(e);
 		
@@ -232,12 +287,20 @@ public class MyButton extends JPanel implements Designable {
 		this.roundness = cornersRounding;
 	}
 
-	public int getShadowOffset() {
-		return shadowOffset;
+	public int getShadowXOffset() {
+		return shadowXOffset;
 	}
 
-	public void setShadowOffset(int shadowOffset) {
-		this.shadowOffset = shadowOffset;
+	public void setShadowXOffset(int shadowOffset) {
+		this.shadowXOffset = shadowOffset;
+	}
+	
+	public int getShadowYOffset() {
+		return shadowYOffset;
+	}
+
+	public void setShadowYOffset(int shadowOffset) {
+		this.shadowYOffset = shadowOffset;
 	}
 
 	public Runnable getOperator() {
@@ -249,8 +312,8 @@ public class MyButton extends JPanel implements Designable {
 	       int width = getWidth();
 	       int height = getHeight();
 	       int shadowGap = this.shadowGap;
-	       Color shadowColorA = new Color(shadowColor.getColor().getRed(),
-	    		   shadowColor.getColor().getGreen(), shadowColor.getColor().getBlue(), shadowAlpha);
+	       Color shadowColorA = new Color(shadowColor.getRed(),
+	    		   shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
 	       Graphics2D graphics = (Graphics2D) g;
 
 	       
@@ -258,7 +321,7 @@ public class MyButton extends JPanel implements Designable {
            RenderingHints.VALUE_ANTIALIAS_ON);
 	       
 
-           graphics.setColor(design.baseColor.getColor());
+           graphics.setColor(design.baseColor);
 	       graphics.fillRect(0, 0, width, height);//paint background
            
 	       
@@ -266,31 +329,52 @@ public class MyButton extends JPanel implements Designable {
 	       if (shady) {
 	           graphics.setColor(shadowColorA);
 	           graphics.fillRoundRect(
-	                   shadowOffset,// X position
-	                   shadowOffset,// Y position
-	                   width - strokeSize - shadowOffset, // width
-	                   height - strokeSize - shadowOffset, // height
+	                   shadowXOffset,// X position
+	                   shadowYOffset,// Y position
+	                   width - strokeSize - shadowXOffset, // width
+	                   height - strokeSize - shadowYOffset, // height
 	                   roundness, roundness);// arc Dimension
 	       } else {
-	           shadowGap = 1;
+	           shadowGap = 0;
 	       }
 			
 	       
 	       //Draws the rounded opaque panel with borders.
-	       graphics.setColor(getBackground());
-	       graphics.fillRoundRect(0, 0, width - shadowGap,
-	       height - shadowGap, roundness, roundness);
+	       graphics.setColor(getColor());
+	       graphics.fillRoundRect(0, 0, width - shadowGap * shadowXOffset,
+	       height - shadowGap * shadowYOffset, roundness, roundness);
+	       /*
 	       graphics.setColor(getForeground());
 	       graphics.setStroke(new BasicStroke(strokeSize));
 	       graphics.drawRoundRect(0, 0, width - shadowGap,
 	       height - shadowGap, roundness, roundness);
-
+			*/
 	       //Sets strokes to default, is better.
 	       graphics.setStroke(new BasicStroke());
 	   }
 	
 	void setRoundness(int _roundness) {
 		roundness = _roundness;
+	}
+	
+	void press() {
+		if(!isEnabled())
+			return;
+		setColor(getColor().darker(40));
+		restore_shadow_gap = shadowGap;
+		setShadowGap(0);
+		repaint();
+	}
+	
+	public void release() {
+		if(!isEnabled())
+			return;
+		setColor(getColor().lighter(40));
+		setShadowGap(restore_shadow_gap);
+		restore_shadow_gap = 0;
+		repaint();
+		if(operator != null)
+			operator.run();
 	}
 	
 	

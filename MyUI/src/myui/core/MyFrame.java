@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -8,9 +8,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Component;
+import java.awt.Cursor;
+
+import javax.swing.Box;
 
 public class MyFrame extends JFrame implements Designable{
 
@@ -19,11 +25,18 @@ public class MyFrame extends JFrame implements Designable{
 	public JPanel scene;
 	private JLabel title;
 	private JPanel topButtons;
+	private MyPage currentPage;
 	JLabel exit;
 	JLabel minimize;
 	JLabel maximize;
 	
+	Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+	
 	boolean animsEnabled = true;
+	private JPanel y_resize;
+	private JPanel x_resize;
+	private Component verticalStrut;
+	private Component horizontalStrut;
 	
 	/**
 	 * Creates a Frame with no Material Design
@@ -40,7 +53,6 @@ public class MyFrame extends JFrame implements Designable{
 		setDesign(d);
 		setUndecorated(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
 		top = new JPanel();
 		getContentPane().add(top, BorderLayout.NORTH);
 		
@@ -69,9 +81,88 @@ public class MyFrame extends JFrame implements Designable{
 		getContentPane().add(scene, BorderLayout.CENTER);
 		scene.setLayout(new BorderLayout(0, 0));
 		
+		y_resize = new JPanel();
+		getContentPane().add(y_resize, BorderLayout.SOUTH);
+		y_resize.setBorder(null);
+		
+		verticalStrut = Box.createVerticalStrut(1);
+		y_resize.add(verticalStrut);
+		
+		x_resize = new JPanel();
+		getContentPane().add(x_resize, BorderLayout.EAST);
+		x_resize.setBorder(null);
+		
+		horizontalStrut = Box.createHorizontalStrut(1);
+		x_resize.add(horizontalStrut);
+		
+		
+		y_resize.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(defaultCursor);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.S_RESIZE_CURSOR);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+		
+		y_resize.addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int y = e.getPoint().y;
+				int height = getHeight() + y;
+				if(height > top.getHeight())
+					setSize(getWidth(), height);
+			}
+		});
+		
+		
+		x_resize.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(defaultCursor);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.W_RESIZE_CURSOR);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+		
+		x_resize.addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getPoint().x;
+				int width = getWidth() + x;
+				if(width > 200)
+					setSize(width, getHeight());
+			}
+		});
 		
 		applyDesign();
-		setBounds(100,100,500,0);
+		setBounds(100,100,500,500);
 		setVisible(true);
 		
 		//operators
@@ -198,30 +289,32 @@ public class MyFrame extends JFrame implements Designable{
 
 	@Override
 	public void applyDesign() {
-		scene.setBackground(design.getBaseColor().getColor());
+		scene.setBackground(design.getBaseColor());
 		
 		//FRAME_TOP_DESIGN
 		switch(design.getFrameTopDesign()) {
 		case BAR: {
-			top.setBackground(design.getAccentColor().getColor());
-			topButtons.setBackground(design.getAccentColor().getColor());
-			exit.setForeground(design.getTextColor().getColor());
-			minimize.setForeground(design.getTextColor().getColor());
-			maximize.setForeground(design.getTextColor().getColor());
-			title.setForeground(design.getTextColor().getColor());
+			top.setBackground(design.getAccentColor());
+			topButtons.setBackground(design.getAccentColor());
+			exit.setForeground(design.getTextColor());
+			minimize.setForeground(design.getTextColor());
+			maximize.setForeground(design.getTextColor());
+			title.setForeground(design.getTextColor());
 			break;
 		}
 		case FLAT: {
-			top.setBackground(design.getBaseColor().getColor());
-			topButtons.setBackground(design.getBaseColor().getColor());
-			exit.setForeground(design.getAccentColor().getColor());
-			minimize.setForeground(design.getAccentColor().getColor());
-			maximize.setForeground(design.getAccentColor().getColor());
-			title.setForeground(design.getAccentColor().getColor());
+			top.setBackground(design.getBaseColor());
+			topButtons.setBackground(design.getBaseColor());
+			exit.setForeground(design.getAccentColor());
+			minimize.setForeground(design.getAccentColor());
+			maximize.setForeground(design.getAccentColor());
+			title.setForeground(design.getAccentColor());
 		}
 		
 		}
 		
+		x_resize.setBackground(design.baseColor);
+		y_resize.setBackground(design.baseColor);
 		title.setFont(design.font);
 		
 	}
@@ -259,7 +352,8 @@ public class MyFrame extends JFrame implements Designable{
 	 * Set the Content Page
 	 * @param page A content page to be set
 	 */
-	public void setContentPage(MyContentPage page) {
+	public void setContentPage(MyPage page) {
+		currentPage = page;
 		scene.removeAll();
 		scene.add(page, BorderLayout.CENTER);
 	}
@@ -268,8 +362,8 @@ public class MyFrame extends JFrame implements Designable{
 	 * Generates a content page from design
 	 * @return new content page
 	 */
-	public MyContentPage genContentPage() {
-		return new MyContentPage(design);
+	public MyPage genPage() {
+		return new MyPage(design);
 	}
 	
 	/**
@@ -429,7 +523,11 @@ public class MyFrame extends JFrame implements Designable{
 				while(getSize().height > top.getHeight()) {
 					MySyncTask.sync(120);
 					setSize(getSize().width, getSize().height - 20);
+					if(getSize().height < top.getHeight())
+						setSize(getWidth(), top.getHeight());
 				}
+				
+				setSize(getWidth(), top.getHeight());
 				
 				while(getSize().width > 0) {
 					MySyncTask.sync(120);
@@ -482,5 +580,21 @@ public class MyFrame extends JFrame implements Designable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Cursor getDefaultCursor() {
+		return defaultCursor;
+	}
+
+	public void setDefaultCursor(Cursor defaultCursor) {
+		this.defaultCursor = defaultCursor;
+	}
+	
+	public void changePage(MyPage to, MyDirection dir) {
+		if(currentPage != null) {
+			currentPage.animatation_slide_out(dir);
+		}
+		to.animatation_slide_in(dir); //TODO: funktioniert kein bisschen
+	}
+	
 	
 }

@@ -1,4 +1,4 @@
-package core;
+package myui.core;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -66,9 +66,9 @@ public class MyToggleButton extends JPanel implements Designable{
 		else
 			accent = design.accentColor;
 		
-		border = new EtchedBorder(EtchedBorder.RAISED, accent.getColor(), accent.darker(10).getColor());
+		border = new EtchedBorder(EtchedBorder.RAISED, accent, accent.darker(10));
 		setBorder(border);
-		setBackground(design.baseColor.getColor());
+		setBackground(design.baseColor);
 		
 		switch(design.toggleButtonDesign) {
 		case CHECKMARK: {
@@ -79,8 +79,8 @@ public class MyToggleButton extends JPanel implements Designable{
 			break;}
 		case FIELD: {
 			clickable = new JPanel();
-			clickable.setBackground(accent.getColor());
-			((JPanel) clickable).setBorder(new EtchedBorder(EtchedBorder.RAISED, design.baseColor.getColor(), design.baseColor.darker(10).getColor()));
+			clickable.setBackground(accent);
+			((JPanel) clickable).setBorder(new EtchedBorder(EtchedBorder.RAISED, design.baseColor, design.baseColor.darker(10)));
 			break;}
 		}
 		
