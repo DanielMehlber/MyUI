@@ -10,6 +10,7 @@ import myui.core.MyDialog;
 import myui.core.MyDirection;
 import myui.core.MyFrame;
 import myui.core.MyMaterialDesign;
+import myui.core.MyMedia;
 import myui.core.MyProgessChart;
 import myui.core.MySyncTask;
 import myui.core.MyTextEntry;
@@ -78,6 +79,11 @@ public class Main extends MyFrame{
 		text.setFont(text.getFont().deriveFont(18f));
 		text.setSubtext("Please enter your Name");
 		
+		MyMedia media = new MyMedia();
+		media.setLocation(338, 262);
+		media.setSize(200, 200);
+		page.add(media);
+		media.setLayoutMode(MyMedia.LAYOUT_MODE.REPEAT);
 		
 		go(600,600);
 		chart.go();
