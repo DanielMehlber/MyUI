@@ -19,10 +19,11 @@ public class MyMedia extends JPanel{
 	LAYOUT_MODE layout;
 	double xScale = 1, yScale = 1;
 	BufferedImage image;
+	BufferedImage processed;
 	public static final BufferedImage PLACEHOLDER_IMAGE = genDefaultImage(64, 64);
 	
 	public MyMedia() {
-		image = PLACEHOLDER_IMAGE;
+		this(PLACEHOLDER_IMAGE);
 	}
 	
 	public MyMedia(String path) {
@@ -30,7 +31,8 @@ public class MyMedia extends JPanel{
 	}
 	
 	public MyMedia(BufferedImage image) {
-		
+		this.image = image;
+		this.processed = this.image;
 	}
 	
 	@Override
@@ -53,7 +55,7 @@ public class MyMedia extends JPanel{
 			for(int x = 0; x < x_times; x++) {
 				for(int y = 0; y < y_times; y++) {
 					System.out.println(x*width);
-					g.drawImage(blur(image), x*width, y*height, width, height, null);
+					g.drawImage(processed, x*width, y*height, width, height, null);
 				}
 			}
 			
@@ -137,6 +139,10 @@ public class MyMedia extends JPanel{
 		return i;
 	}
 	
+	
+	public void blur() {
+		
+	}
 	
 	
 	
