@@ -4,11 +4,18 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -52,6 +59,7 @@ public class MyFrame extends JFrame implements Designable{
 	public MyFrame(MyMaterialDesign d) {
 		setDesign(d);
 		setUndecorated(true);
+		setSize(0,0);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		top = new JPanel();
 		getContentPane().add(top, BorderLayout.NORTH);
@@ -286,6 +294,35 @@ public class MyFrame extends JFrame implements Designable{
             }
         });
 		
+		addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				if(currentPage == null)
+					return;
+				currentPage.setSize(scene.getSize());
+				
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 	}
 
 	@Override
@@ -380,7 +417,7 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				while(getSize().height > 0) {
 					MySyncTask.sync(120);
-					setBounds(getX(), getY() + 20 / 2, getWidth(), getHeight() - 40 / 2);
+					setBounds(getX(), (int) (getY() + 20*design.animation_speed / 2), getWidth(), (int) (getHeight() - 40*design.animation_speed / 2));
 				}
 				
 			}
@@ -407,7 +444,7 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				while(getSize().height < height) {
 					MySyncTask.sync(120);
-					setBounds(getX(), getY() - 20 / 2, getWidth(), getHeight()+40 / 2);
+					setBounds(getX(), (int) (getY() - 20*design.animation_speed / 2), getWidth(), (int) (getHeight()+40*design.animation_speed / 2));
 				}
 				
 			}
@@ -435,7 +472,7 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				while(getSize().height < height) {
 					MySyncTask.sync(120);
-					setSize(getWidth(), getHeight() + 20);
+					setSize(getWidth(), (int) (getHeight() + 20*design.animation_speed));
 				}
 				
 			}
@@ -461,7 +498,7 @@ public class MyFrame extends JFrame implements Designable{
 			public void run() {
 				while(getSize().height > 0) {
 					MySyncTask.sync(120);
-					setSize(getWidth(), getHeight() - 20);
+					setSize(getWidth(), (int) (getHeight() - 20*design.animation_speed));
 				}
 				
 			}
@@ -490,12 +527,12 @@ public class MyFrame extends JFrame implements Designable{
 				setSize(100, top.getSize().height);
 				while(getSize().width < width) {
 					MySyncTask.sync(120);
-					setSize(getSize().width + 20, getSize().height);
+					setSize((int) (getSize().width + 20*design.animation_speed), getSize().height);
 				}
 				
 				while(getSize().height < height) {
 					MySyncTask.sync(120);
-					setSize(getSize().width, getSize().height + 20);
+					setSize(getSize().width, (int) (getSize().height + 20*design.animation_speed));
 				}
 				
 			}
@@ -523,7 +560,7 @@ public class MyFrame extends JFrame implements Designable{
 				
 				while(getSize().height > top.getHeight()) {
 					MySyncTask.sync(120);
-					setSize(getSize().width, getSize().height - 20);
+					setSize(getSize().width, (int) (getSize().height - 20*design.animation_speed));
 					if(getSize().height < top.getHeight())
 						setSize(getWidth(), top.getHeight());
 				}
@@ -532,7 +569,7 @@ public class MyFrame extends JFrame implements Designable{
 				
 				while(getSize().width > 0) {
 					MySyncTask.sync(120);
-					setSize(getSize().width - 20, getSize().height);
+					setSize((int) (getSize().width - 20*design.animation_speed), getSize().height);
 				}
 				
 				
@@ -591,13 +628,21 @@ public class MyFrame extends JFrame implements Designable{
 	}
 	
 	public void changePage(MyPage to, MyDirection dir) {
-		if(currentPage != null) {
-			currentPage.animatation_slide_out(dir);
+		if(currentPage == to) {
+			System.err.println("Cannot change page, that is the same one again");
+			return;
 		}
 		to.setSize(scene.getSize());
 		scene.add(to);
+		if(currentPage == null) {
+			to.animatation_slide_in(dir);
+			currentPage = to;
+			return;
+		}
+		currentPage.animatation_change_to(dir, to);
+		scene.remove(currentPage);
 		currentPage = to;
-		to.animatation_slide_in(dir);
+		
 	}
 	
 	

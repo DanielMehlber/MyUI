@@ -27,11 +27,12 @@ public class Main extends MyFrame{
 	public Main() {
 		MyMaterialDesign design = MyMaterialDesign.FOX;
 		design.frameTopDesign = FRAME_DESIGN.FLAT;
+		design.setAnimationSpeed(MyMaterialDesign.ANIM_FAST);
 		setDesign(design);
 		design.font = design.font.deriveFont(15f);
 		design.apply();
 		setTitle("Test");
-		setBounds(100,100,600,600);
+		//setBounds(100,100,600,600);
 		
 		MyPage page = new MyPage(getDesign());
 		changePage(page, null);
@@ -57,6 +58,22 @@ public class Main extends MyFrame{
 		page.add(tbtn);
 		tbtn.setLocation(400, 400);
 		
+		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
+		text.setLocation(36, 112);
+		text.setSize(203, 60);
+		page.add(text);
+		text.setVisible(true);
+		text.setFont(text.getFont().deriveFont(18f));
+		text.setSubtext("Please enter your Name");
+		text.addRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				text.animation_reunterline();
+				
+			}
+		});
+		
 		MyButton btn = new MyButton(getDesign(), "PRESS ME");
 		btn.setLocation(36, 61);
 		btn.setShadow(true);
@@ -66,7 +83,8 @@ public class Main extends MyFrame{
 			@Override
 			public void run() {
 				changePage(next, MyDirection.SOUTH);
-				
+				design.baseColor = MyColor.MIDNIGHT_BLUE;
+				design.apply();
 			}
 		});
 		
@@ -78,17 +96,11 @@ public class Main extends MyFrame{
 			@Override
 			public void run() {
 				changePage(page, MyDirection.NORTH);
-				
+				design.baseColor = MyColor.DARK_GRAY;
+				design.apply();
 			}
 		});
 		
-		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
-		text.setLocation(36, 112);
-		text.setSize(203, 60);
-		page.add(text);
-		text.setVisible(true);
-		text.setFont(text.getFont().deriveFont(18f));
-		text.setSubtext("Please enter your Name");
 		
 		MyMedia media = new MyMedia();
 		media.setLocation(338, 262);

@@ -19,7 +19,6 @@ public class MySyncTask extends MyTask{
 				long last_time = System.nanoTime();
 				while(running) {
 					if(System.nanoTime()-last_time > delay_time) {
-						System.out.println("PING");
 						last_time = System.nanoTime();
 						runnable.run();
 						
@@ -65,7 +64,12 @@ public class MySyncTask extends MyTask{
 	
 	public static void sync(int _ups) {
 		long start_time = System.nanoTime();
-		while(System.nanoTime() - start_time < 1000000000l / _ups) {}
+		while(System.nanoTime() - start_time < 1000000000l / _ups) {try {
+			Thread.currentThread().sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}}
 	}
 	
 	public static void sleep(long millis) {

@@ -43,6 +43,11 @@ public class MyMaterialDesign {
 		FIELD, DOT, CHECKMARK
 	}
 	
+	public float animation_speed = 1.0f;
+	public static final float ANIM_SLOW = 0.5f;
+	public static final float ANIM_NORMAL = 1.0f;
+	public static final float ANIM_FAST = 1.5f;
+	public static final float ANIM_VERY_FAST = 2.0f;
 	
 	public FRAME_DESIGN frameTopDesign;
 	public BUTTON_DESIGN buttonDesign;
@@ -114,6 +119,10 @@ public class MyMaterialDesign {
 		for(Designable user : users) {
 			user.applyDesign();
 		}
+	}
+	
+	public void setAnimationSpeed(float speed) {
+		this.animation_speed = speed;
 	}
 	
 	

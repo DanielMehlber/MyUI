@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
@@ -15,7 +18,7 @@ import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.Box;
 
-public class MyTextEntry extends JPanel implements Designable{
+public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 	private Component entry;
 	private MyMaterialDesign design;
 	private MyColor textColor;
@@ -26,6 +29,8 @@ public class MyTextEntry extends JPanel implements Designable{
 	private Component verticalStrut;
 	private int subtextOffsetY = 8;
 	private int subtextOffsetX;
+	private float line_fac = 1f;
+	ArrayList<Runnable> runnables;
 	
 	public enum MY_TEXT_ENTRY_MODE {
 		NORMAL, PASSWORD
@@ -37,6 +42,7 @@ public class MyTextEntry extends JPanel implements Designable{
 	 * @wbp.parser.constructor
 	 */
 	public MyTextEntry(MyMaterialDesign design, MY_TEXT_ENTRY_MODE mode) {
+		runnables = new ArrayList<Runnable>();
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		this.mode = mode;
@@ -60,6 +66,28 @@ public class MyTextEntry extends JPanel implements Designable{
 		
 		verticalStrut = Box.createVerticalStrut(getFontMetrics(getFont().deriveFont(subtextSize)).getHeight() + subtextOffsetY + 4);
 		add(verticalStrut, BorderLayout.SOUTH);
+		entry.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					run();
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				
+			}
+		});
 		
 	}
 	
@@ -141,7 +169,7 @@ public class MyTextEntry extends JPanel implements Designable{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(getColor());
 		g2d.setStroke(new BasicStroke(lineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
-		g2d.drawLine(0, entry.getHeight() + 2, getWidth(), entry.getHeight()+2);
+		g2d.drawLine(0, entry.getHeight() + 2, (int) (getWidth()*line_fac), entry.getHeight()+2);
 		g2d.setFont(design.font.deriveFont(subtextSize));
 		g2d.drawString(subtext, subtextOffsetX, entry.getHeight() + subtextSize + subtextOffsetY);
 	}
@@ -214,6 +242,40 @@ public class MyTextEntry extends JPanel implements Designable{
 	public void setColor(MyColor color) {
 		this.color = color;
 		applyDesign();
+	}
+	
+	public void animation_reunterline() {
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				line_fac = 0f;
+				repaint();
+				double i = 0;
+				while(line_fac < 1f) {
+					MySyncTask.sync(120);
+					line_fac = (float) (0.5 * Math.sin(i - Math.PI/2) + 0.51);
+					i+=0.05;
+					repaint();
+				}
+				
+				
+			}
+		});
+		t.start();
+	}
+
+	@Override
+	public void addRunnable(Runnable r) {
+		runnables.add(r);
+		
+	}
+
+	@Override
+	public void run() {
+		for(Runnable r : runnables)
+			r.run();
+		
 	}
 	
 	
