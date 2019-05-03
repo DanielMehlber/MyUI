@@ -50,6 +50,7 @@ public class MyPage extends JPanel implements Designable{
 			
 			@Override
 			public void run() {
+				System.out.println("SLIDE");
 				int x_fac = 0;
 				int y_fac = 0;
 				switch(dir) {
@@ -91,37 +92,45 @@ public class MyPage extends JPanel implements Designable{
 			
 			@Override
 			public void run() {
+				
 				int x_fac = 0;
 				int y_fac = 0;
-				switch(dir) {
-				case NORTH: {
-					y_fac = -1;
-					break;}
 				
-				case EAST: {
-					y_fac = 1;
-					break;
+				if(dir != null) {
+				
+					switch(dir) {
+					case NORTH: {
+						y_fac = -1;
+						break;}
+					
+					case EAST: {
+						y_fac = 1;
+						break;
+					}
+					
+					case WEST: {
+						x_fac = -1;
+						break;
+					}
+					
+					case SOUTH:{
+						y_fac = 1;
+						break;
+					}
+					
+					}
 				}
 				
-				case WEST: {
-					x_fac = -1;
-					break;
-				}
-				
-				case SOUTH:{
-					y_fac = 1;
-					break;
-				}
-				
-				}
 				
 				setLocation(-getWidth() * x_fac, -getHeight() * y_fac);
 				int tick = 20;
 				while(!(Math.abs(getY()) < tick+1) || !(Math.abs(getX()) < tick+1)) {
 					MySyncTask.sync(120);
 					setLocation(getX() + tick * x_fac, getY() + tick * y_fac);
+					System.out.println("Location Slide To:"+getX()+","+getY());
 				}
 				setLocation(0,0);
+				setVisible(true);
 			}
 		});
 		

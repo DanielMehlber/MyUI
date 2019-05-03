@@ -51,10 +51,8 @@ public class MyMedia extends JPanel{
 			
 			int x_times = (int) Math.ceil(getWidth() / (image.getWidth() * xScale));
 			int y_times = (int) Math.ceil(getHeight() / (image.getHeight() * xScale));
-			System.out.println(x_times);
 			for(int x = 0; x < x_times; x++) {
 				for(int y = 0; y < y_times; y++) {
-					System.out.println(x*width);
 					g.drawImage(processed, x*width, y*height, width, height, null);
 				}
 			}
@@ -122,26 +120,32 @@ public class MyMedia extends JPanel{
 		this.yScale = yScale;
 	}
 	
-	public static BufferedImage blur(BufferedImage img) {
-		int radius = 11;
-	    int size = radius * 2 + 1;
-	    float weight = 1.0f / (img.getWidth() * img.getHeight());
-	    float[] data = new float[img.getWidth() * img.getHeight()];
-
-	    for (int i = 0; i < data.length; i++) {
-	        data[i] = weight;
-	    }
-
-	    Kernel kernel = new Kernel(size, size, data);
-	    BufferedImageOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-	    //tbi is BufferedImage
-	    BufferedImage i = op.filter(img, null);
-		return i;
+	public static BufferedImage blur(BufferedImage img, int size, float weight) {
+		float[] kernel = new float[size * size];
+		for(int i = 0; i < kernel.length; i++)
+			kernel[i] = weight;
+		
+		BufferedImage blured = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+		
+		return blured;
 	}
 	
+	public void setBlur(int blur) {
+		processed = blur(image, 2, 0.5f);
+	}
 	
-	public void blur() {
-		
+	public float[] mixColor(float[] a, float[] b, float fac) {
+		if(a.length != b.length)
+			try {
+				throw new Exception("Vector length different");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		float[] r = new float[a.length];
+		for(int i = 0; i < a.length; i++) {
+			r[i] = (a[i] * (1-fac) + b[i]*fac);
+		}
+		return r;
 	}
 	
 	

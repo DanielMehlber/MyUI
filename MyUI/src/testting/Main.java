@@ -34,9 +34,9 @@ public class Main extends MyFrame{
 		setBounds(100,100,600,600);
 		
 		MyPage page = new MyPage(getDesign());
-		setContentPage(page);
+		changePage(page, null);
 		
-		MyPage next = new MyPage(MyMaterialDesign.SEA);
+		MyPage next = new MyPage(getDesign());
 		
 		MyDialog dialog = new MyDialog(getDesign());
 		dialog.setLocation(277, 112);
@@ -70,6 +70,17 @@ public class Main extends MyFrame{
 			}
 		});
 		
+		MyButton btn1 = new MyButton(getDesign(), "BACK");
+		btn1.setBounds(100,100,100,50);
+		next.add(btn1);
+		btn1.setOperator(new Runnable() {
+			
+			@Override
+			public void run() {
+				changePage(page, MyDirection.NORTH);
+				
+			}
+		});
 		
 		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
 		text.setLocation(36, 112);
@@ -83,6 +94,7 @@ public class Main extends MyFrame{
 		media.setLocation(338, 262);
 		media.setSize(200, 200);
 		page.add(media);
+		media.setBlur(1);
 		media.setLayoutMode(MyMedia.LAYOUT_MODE.REPEAT);
 		
 		go(600,600);

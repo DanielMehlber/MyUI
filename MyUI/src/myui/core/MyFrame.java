@@ -79,7 +79,8 @@ public class MyFrame extends JFrame implements Designable{
 		
 		scene = new JPanel();
 		getContentPane().add(scene, BorderLayout.CENTER);
-		scene.setLayout(new BorderLayout(0, 0));
+		//scene.setLayout(new BorderLayout(0, 0));
+		scene.setLayout(null);
 		
 		y_resize = new JPanel();
 		getContentPane().add(y_resize, BorderLayout.SOUTH);
@@ -593,8 +594,12 @@ public class MyFrame extends JFrame implements Designable{
 		if(currentPage != null) {
 			currentPage.animatation_slide_out(dir);
 		}
-		to.animatation_slide_in(dir); //TODO: funktioniert kein bisschen
+		to.setSize(scene.getSize());
+		scene.add(to);
+		currentPage = to;
+		to.animatation_slide_in(dir);
 	}
+	
 	
 	
 }
