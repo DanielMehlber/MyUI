@@ -120,33 +120,9 @@ public class MyMedia extends JPanel{
 		this.yScale = yScale;
 	}
 	
-	public static BufferedImage blur(BufferedImage img, int size, float weight) {
-		float[] kernel = new float[size * size];
-		for(int i = 0; i < kernel.length; i++)
-			kernel[i] = weight;
-		
-		BufferedImage blured = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
-		
-		return blured;
-	}
 	
-	public void setBlur(int blur) {
-		processed = blur(image, 2, 0.5f);
-	}
 	
-	public float[] mixColor(float[] a, float[] b, float fac) {
-		if(a.length != b.length)
-			try {
-				throw new Exception("Vector length different");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		float[] r = new float[a.length];
-		for(int i = 0; i < a.length; i++) {
-			r[i] = (a[i] * (1-fac) + b[i]*fac);
-		}
-		return r;
-	}
+	
 	
 	
 	

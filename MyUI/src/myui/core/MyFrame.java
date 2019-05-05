@@ -24,6 +24,9 @@ import java.awt.Component;
 import java.awt.Cursor;
 
 import javax.swing.Box;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.BoxLayout;
 
 public class MyFrame extends JFrame implements Designable{
 
@@ -93,6 +96,7 @@ public class MyFrame extends JFrame implements Designable{
 		y_resize = new JPanel();
 		getContentPane().add(y_resize, BorderLayout.SOUTH);
 		y_resize.setBorder(null);
+		y_resize.setLayout(new BorderLayout(0, 0));
 		
 		verticalStrut = Box.createVerticalStrut(1);
 		y_resize.add(verticalStrut);
@@ -100,6 +104,7 @@ public class MyFrame extends JFrame implements Designable{
 		x_resize = new JPanel();
 		getContentPane().add(x_resize, BorderLayout.EAST);
 		x_resize.setBorder(null);
+		x_resize.setLayout(new BoxLayout(x_resize, BoxLayout.X_AXIS));
 		
 		horizontalStrut = Box.createHorizontalStrut(1);
 		x_resize.add(horizontalStrut);
@@ -627,11 +632,13 @@ public class MyFrame extends JFrame implements Designable{
 		this.defaultCursor = defaultCursor;
 	}
 	
+	
 	public void changePage(MyPage to, MyDirection dir) {
 		if(currentPage == to) {
-			System.err.println("Cannot change page, that is the same one again");
+			System.err.println("Change failed: Same Page");
 			return;
 		}
+		
 		to.setSize(scene.getSize());
 		scene.add(to);
 		if(currentPage == null) {
@@ -639,9 +646,59 @@ public class MyFrame extends JFrame implements Designable{
 			currentPage = to;
 			return;
 		}
-		currentPage.animatation_change_to(dir, to);
-		scene.remove(currentPage);
-		currentPage = to;
+		
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				int x_fac = 0;
+				int y_fac = 0;
+				
+				if(dir != null) {
+				
+					switch(dir) {
+					case NORTH: {
+						y_fac = -1;
+						break;}
+					
+					case EAST: {
+						y_fac = 1;
+						break;
+					}
+					
+					case WEST: {
+						x_fac = -1;
+						break;
+					}
+					
+					case SOUTH:{
+						y_fac = 1;
+						break;
+					}
+					
+					}
+				}
+				
+				
+				to.setLocation(-to.getWidth() * x_fac, -to.getHeight() * y_fac);
+				int tick = (int) (20 * design.animation_speed);
+				while(!(Math.abs(to.getY()) < tick+1) || !(Math.abs(to.getX()) < tick+1)) {
+					MySyncTask.sync(120);
+					int deltax = (tick * x_fac);
+					int deltay = (tick * y_fac);
+					currentPage.setLocation(currentPage.getLocation().x + deltax, currentPage.getLocation().y + deltay);
+					to.setLocation(to.getLocation().x + deltax, to.getLocation().y + deltay);
+					repaint();
+				}
+				scene.remove(currentPage);
+				currentPage = to;
+				to.setLocation(0,0);
+				setVisible(true);
+			}
+		});
+		
+		t.start();
 		
 	}
 	

@@ -37,6 +37,8 @@ public class MyButton extends JPanel implements Designable {
 	 */
 	private MyColor customColor = null;
 	
+	private MyColor restore_color;
+	
 	/**
 	 * Label printed on the button
 	 */
@@ -360,6 +362,7 @@ public class MyButton extends JPanel implements Designable {
 	void press() {
 		if(!isEnabled())
 			return;
+		restore_color = getColor();
 		setColor(getColor().darker(40));
 		restore_shadow_gap = shadowGap;
 		setShadowGap(0);
@@ -369,7 +372,7 @@ public class MyButton extends JPanel implements Designable {
 	public void release() {
 		if(!isEnabled())
 			return;
-		setColor(getColor().lighter(40));
+		setColor(restore_color);
 		setShadowGap(restore_shadow_gap);
 		restore_shadow_gap = 0;
 		repaint();

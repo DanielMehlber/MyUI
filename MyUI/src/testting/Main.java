@@ -9,6 +9,7 @@ import myui.core.MyPage;
 import myui.core.MyDialog;
 import myui.core.MyDirection;
 import myui.core.MyFrame;
+import myui.core.MyGradient;
 import myui.core.MyMaterialDesign;
 import myui.core.MyMedia;
 import myui.core.MyProgessChart;
@@ -16,6 +17,7 @@ import myui.core.MySyncTask;
 import myui.core.MyTextEntry;
 import myui.core.MyToggleButton;
 import myui.core.MyMaterialDesign.FRAME_DESIGN;
+import myui.core.MyTextEntry.MY_TEXT_ENTRY_MODE;
 
 public class Main extends MyFrame{
 
@@ -23,95 +25,90 @@ public class Main extends MyFrame{
 		new Main();
 	}
 	
+	public void login(MyTextEntry username, MyTextEntry password) {
+		if(username.getText().equals("daniel.mehlber@gmail.com") && password.getText().equals("al123pha")) {
+			
+		}else {
+			username.error("Unkown Username... Try again", 3);
+			password.error("Password incorrect...", 3.5f);
+		}
+	}
+	
 	
 	public Main() {
 		MyMaterialDesign design = MyMaterialDesign.FOX;
 		design.frameTopDesign = FRAME_DESIGN.FLAT;
-		design.setAnimationSpeed(MyMaterialDesign.ANIM_FAST);
+		design.setAnimationSpeed(MyMaterialDesign.ANIM_NORMAL);
 		setDesign(design);
 		design.font = design.font.deriveFont(15f);
 		design.apply();
 		setTitle("Test");
 		//setBounds(100,100,600,600);
 		
-		MyPage page = new MyPage(getDesign());
-		changePage(page, null);
+		MyPage pageLogin = new MyPage(getDesign());
+		changePage(pageLogin, null);
 		
 		MyPage next = new MyPage(getDesign());
 		
-		MyDialog dialog = new MyDialog(getDesign());
-		dialog.setLocation(277, 112);
-		page.add(dialog);
-		dialog.setSize(240,108);
+		MyTextEntry entryUsername = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
 		
-		MyProgessChart chart =  new MyProgessChart(getDesign());
-		chart.setLocation(104, 290);
-		page.add(chart);
-		chart.setSize(168, 169);
-		chart.add(new MyChartEntry(10, MyColor.GREEN));
-		chart.add(new MyChartEntry(90, MyColor.RED));
-		chart.add(new MyChartEntry(50, MyColor.YELLOW));
-		chart.add(new MyChartEntry(60, MyColor.BLUE));
-		chart.add(new MyChartEntry(30, MyColor.CYAN));
+		MyGradient gradient = new MyGradient(MyDirection.WEST, MyColor.BLACK, MyColor.WHITE);
+		gradient.setBounds(360, 0, 200, 536);
+		pageLogin.add(gradient);
 		
-		MyToggleButton tbtn = new MyToggleButton(getDesign(), true);
-		page.add(tbtn);
-		tbtn.setLocation(400, 400);
-		
-		MyTextEntry text = new MyTextEntry(getDesign(), MyTextEntry.MY_TEXT_ENTRY_MODE.NORMAL);
-		text.setLocation(36, 112);
-		text.setSize(203, 60);
-		page.add(text);
-		text.setVisible(true);
-		text.setFont(text.getFont().deriveFont(18f));
-		text.setSubtext("Please enter your Name");
-		text.addRunnable(new Runnable() {
+		MyTextEntry	entryPassword = new MyTextEntry(getDesign(), MY_TEXT_ENTRY_MODE.PASSWORD);
+		entryPassword.setBounds(21, 148, 313, 60);
+		entryPassword.setSubtext("Enter Password");
+		pageLogin.add(entryPassword);
+		entryPassword.addRunnable(new Runnable() {
 			
 			@Override
 			public void run() {
-				text.animation_reunterline();
+				login(entryUsername, entryPassword);
 				
 			}
 		});
 		
-		MyButton btn = new MyButton(getDesign(), "PRESS ME");
-		btn.setLocation(36, 61);
-		btn.setShadow(true);
-		page.add(btn);
-		btn.setOperator(new Runnable() {
+		entryUsername.setLocation(21, 84);
+		entryUsername.setSize(313, 60);
+		pageLogin.add(entryUsername);
+		entryUsername.setVisible(true);
+		entryUsername.setFont(entryUsername.getFont().deriveFont(18f));
+		entryUsername.setSubtext("Username or Email");
+		entryUsername.addRunnable(new Runnable() {
 			
 			@Override
 			public void run() {
-				changePage(next, MyDirection.SOUTH);
-				design.baseColor = MyColor.MIDNIGHT_BLUE;
-				design.apply();
+				login(entryUsername, entryPassword);
+				
 			}
 		});
 		
-		MyButton btn1 = new MyButton(getDesign(), "BACK");
-		btn1.setBounds(100,100,100,50);
-		next.add(btn1);
-		btn1.setOperator(new Runnable() {
+		MyButton BtnLogin = new MyButton(getDesign(), "Login");
+		BtnLogin.setLocation(201, 470);
+		BtnLogin.setShadow(true);
+		pageLogin.add(BtnLogin);
+		BtnLogin.setOperator(new Runnable() {
 			
 			@Override
 			public void run() {
-				changePage(page, MyDirection.NORTH);
-				design.baseColor = MyColor.DARK_GRAY;
-				design.apply();
+				login(entryUsername, entryPassword);
 			}
 		});
 		
 		
 		MyMedia media = new MyMedia();
-		media.setLocation(338, 262);
-		media.setSize(200, 200);
-		page.add(media);
-		media.setBlur(1);
+		media.setLocation(360, 0);
+		media.setSize(200, 536);
+		pageLogin.add(media);
 		media.setLayoutMode(MyMedia.LAYOUT_MODE.REPEAT);
 		
-		go(600,600);
-		chart.go();
 		
+		MyButton BtnBackToHome = new MyButton(getDesign(), "Back");
+		BtnBackToHome.setBounds(21, 470, 150, 40);
+		pageLogin.add(BtnBackToHome);
+		
+		go(600, 600);
 		
 	}
 }

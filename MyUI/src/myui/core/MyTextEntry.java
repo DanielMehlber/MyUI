@@ -30,6 +30,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 	private int subtextOffsetY = 8;
 	private int subtextOffsetX;
 	private float line_fac = 1f;
+	private boolean isBusy = false;
 	ArrayList<Runnable> runnables;
 	
 	public enum MY_TEXT_ENTRY_MODE {
@@ -278,7 +279,33 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 		
 	}
 	
-	
+	public void error(String message, float seconds) {
+		
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String _subtext = subtext;
+				setSubtext(message);
+				MyColor _color = getColor();
+				setColor(MyColor.RED);
+				animation_reunterline();
+				if(seconds <= 0)
+					return;
+				isBusy = true;
+				MySyncTask.sleep((long) (1000 * seconds));
+				setSubtext(_subtext);
+				setColor(_color);
+				animation_reunterline();
+				isBusy = false;
+			}
+		});
+		
+		if(isBusy)
+			return;
+		t.start();
+		
+	}
 	
 	
 	
