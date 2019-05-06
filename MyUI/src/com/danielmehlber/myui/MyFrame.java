@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -60,6 +60,7 @@ public class MyFrame extends JFrame implements Designable{
 	 * @param d Material Design
 	 */
 	public MyFrame(MyMaterialDesign d) {
+		setVisible(false);
 		setDesign(d);
 		setUndecorated(true);
 		setSize(0,0);
@@ -118,10 +119,14 @@ public class MyFrame extends JFrame implements Designable{
 			public void mousePressed(MouseEvent e) {}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				if(!isResizable())
+					return;
 				setCursor(defaultCursor);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				if(!isResizable())
+					return;
 				setCursor(Cursor.S_RESIZE_CURSOR);
 			}
 			@Override
@@ -135,6 +140,8 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				if(!isResizable())
+					return;
 				int y = e.getPoint().y;
 				int height = getHeight() + y;
 				if(height > top.getHeight())
@@ -151,10 +158,14 @@ public class MyFrame extends JFrame implements Designable{
 			public void mousePressed(MouseEvent e) {}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				if(!isResizable())
+					return;
 				setCursor(defaultCursor);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				if(!isResizable())
+					return;
 				setCursor(Cursor.W_RESIZE_CURSOR);
 			}
 			@Override
@@ -168,6 +179,8 @@ public class MyFrame extends JFrame implements Designable{
 			
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				if(!isResizable())
+					return;
 				int x = e.getPoint().x;
 				int width = getWidth() + x;
 				if(width > 200)
@@ -601,7 +614,12 @@ public class MyFrame extends JFrame implements Designable{
 	 * @param height Height
 	 */
 	public void go(int width, int height) {
+		setVisible(true);
 		animation_open_window(width, height, true);
+	}
+	
+	public void go() {
+		go(getWidth(), getHeight());
 	}
 	
 	/**
@@ -634,6 +652,12 @@ public class MyFrame extends JFrame implements Designable{
 	
 	
 	public void changePage(MyPage to, MyDirection dir) {
+		
+		if(to == null) {
+			System.err.println("Page can't be null");
+			return;
+		}
+		
 		if(currentPage == to) {
 			System.err.println("Change failed: Same Page");
 			return;
@@ -646,6 +670,13 @@ public class MyFrame extends JFrame implements Designable{
 			currentPage = to;
 			return;
 		}
+		
+		if(to.isMoving || currentPage.isMoving) {
+			return;
+		}
+		
+		currentPage.isMoving = true;
+		to.isMoving = true;
 		
 		Thread t = new Thread(new Runnable() {
 			
@@ -692,9 +723,11 @@ public class MyFrame extends JFrame implements Designable{
 					repaint();
 				}
 				scene.remove(currentPage);
+				currentPage.isMoving = false;
 				currentPage = to;
 				to.setLocation(0,0);
 				setVisible(true);
+				to.isMoving = false;
 			}
 		});
 		

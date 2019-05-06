@@ -1,16 +1,18 @@
-package myui.core;
+package com.danielmehlber.myui;
+
+import java.awt.Color;
 
 public class MyChartEntry implements Comparable<MyChartEntry>{
 
-	private MyColor color;
+	private Color color;
 	private int percent;
 	
-	public MyChartEntry(int _percent, MyColor _color) {
-		color = _color;
+	public MyChartEntry(int _percent, Color blue) {
+		color = blue;
 		percent = _percent;
 	}
 
-	public MyColor getColor() {
+	public Color getColor() {
 		return color;
 	}
 

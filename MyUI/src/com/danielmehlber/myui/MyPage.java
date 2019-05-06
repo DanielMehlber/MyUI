@@ -1,10 +1,12 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import javax.swing.JPanel;
 
 public class MyPage extends JPanel implements Designable{
 
 	public MyMaterialDesign design;
+	
+	public boolean isMoving = false;
 	
 	public MyPage(MyMaterialDesign d) {
 		setDesign(d);

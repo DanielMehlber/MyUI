@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 public class MySyncTask extends MyTask{
 	

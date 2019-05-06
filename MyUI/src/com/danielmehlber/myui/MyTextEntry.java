@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -46,6 +46,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 		runnables = new ArrayList<Runnable>();
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
+		setSize(200, 50);
 		this.mode = mode;
 		switch(mode) {
 		case NORMAL: {

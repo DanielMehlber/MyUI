@@ -2,7 +2,7 @@ package tools;
 
 import javax.swing.ImageIcon;
 
-import myui.core.MyColor;
+import com.danielmehlber.myui.MyColor;
 
 public class ImageManipulator {
 

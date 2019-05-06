@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import javax.swing.JPanel;
 
@@ -11,12 +11,15 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class MyButton extends JPanel implements Designable {
+public class MyButton extends JPanel implements Designable, MyRunnable {
 
+	ArrayList<Runnable> runnables;
+	
 	/**
 	 * Design of the Component
 	 */
@@ -90,6 +93,7 @@ public class MyButton extends JPanel implements Designable {
 	 * Create the panel.
 	 */
 	public MyButton(MyMaterialDesign design, String s) {
+		runnables = new ArrayList<Runnable>();
 		setLayout(new BorderLayout(0, 0));
 		setDesign(design);
 		setBounds(0,0,150, 40);
@@ -376,8 +380,20 @@ public class MyButton extends JPanel implements Designable {
 		setShadowGap(restore_shadow_gap);
 		restore_shadow_gap = 0;
 		repaint();
-		if(operator != null)
-			operator.run();
+		run();
+	}
+
+	@Override
+	public void addRunnable(Runnable r) {
+		runnables.add(r);
+		
+	}
+
+	@Override
+	public void run() {
+		for(Runnable r : runnables)
+			r.run();
+		
 	}
 	
 	

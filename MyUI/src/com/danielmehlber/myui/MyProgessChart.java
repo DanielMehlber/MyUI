@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -22,6 +22,7 @@ public class MyProgessChart extends JPanel implements Designable{
 		design = _design;
 		entries = new ArrayList<MyChartEntry>();
 		super.setOpaque(false);
+		setSize(200, 200);
 	}
 	
 	public void add(MyChartEntry entry) {

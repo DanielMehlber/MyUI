@@ -1,4 +1,4 @@
-package myui.core;
+package com.danielmehlber.myui;
 
 import java.awt.Color;
 

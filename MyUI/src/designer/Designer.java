@@ -8,11 +8,11 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
-import myui.core.MyButton;
-import myui.core.MyColor;
-import myui.core.MyPage;
-import myui.core.MyFrame;
-import myui.core.MyMaterialDesign;
+import com.danielmehlber.myui.MyButton;
+import com.danielmehlber.myui.MyColor;
+import com.danielmehlber.myui.MyFrame;
+import com.danielmehlber.myui.MyMaterialDesign;
+import com.danielmehlber.myui.MyPage;
 
 import javax.swing.border.EtchedBorder;
 
