@@ -1,23 +1,16 @@
 package com.danielmehlber.myui;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-
-import javax.swing.JPanel;
 
 public class MyDialog extends JPanel implements Designable{
 
-	MyMaterialDesign design;
+	MyDesign design;
 	
-	public MyDialog(MyMaterialDesign _design) {
+	public MyDialog(MyDesign _design) {
 		design = _design;
 		
 		Point point = new Point();
@@ -50,13 +43,13 @@ public class MyDialog extends JPanel implements Designable{
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		design = d;
 		
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		// TODO Auto-generated method stub
 		return design;
 	}

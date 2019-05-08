@@ -10,8 +10,8 @@ public abstract interface Designable {
 	 * Sets the design of an object
 	 * @param d
 	 */
-	public abstract void setDesign(MyMaterialDesign d);
-	public abstract MyMaterialDesign getDesign();
+	public abstract void setDesign(MyDesign d);
+	public abstract MyDesign getDesign();
 	/**
 	 * Resets the Designable Component to its design
 	 */

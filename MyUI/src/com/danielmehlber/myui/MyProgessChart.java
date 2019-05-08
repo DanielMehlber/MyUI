@@ -1,14 +1,9 @@
 package com.danielmehlber.myui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.JPanel;
 
 public class MyProgessChart extends JPanel implements Designable{
 
@@ -16,9 +11,9 @@ public class MyProgessChart extends JPanel implements Designable{
 	private ArrayList<MyChartEntry> entries;
 	private float fac = 0;
 	boolean animation_running = false;
-	MyMaterialDesign design;
+	MyDesign design;
 	
-	public MyProgessChart(MyMaterialDesign _design) {
+	public MyProgessChart(MyDesign _design) {
 		design = _design;
 		entries = new ArrayList<MyChartEntry>();
 		super.setOpaque(false);
@@ -106,13 +101,13 @@ public class MyProgessChart extends JPanel implements Designable{
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		design = d;
 		
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		// TODO Auto-generated method stub
 		return design;
 	}

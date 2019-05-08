@@ -1,20 +1,10 @@
 package com.danielmehlber.myui;
 
-import javax.swing.JPanel;
-
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class MyButton extends JPanel implements Designable, MyRunnable {
 
@@ -23,7 +13,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 	/**
 	 * Design of the Component
 	 */
-	private MyMaterialDesign design;
+	private MyDesign design;
 	
 	/**
 	 * Custom font to be used instead
@@ -92,7 +82,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 	/**
 	 * Create the panel.
 	 */
-	public MyButton(MyMaterialDesign design, String s) {
+	public MyButton(MyDesign design, String s) {
 		runnables = new ArrayList<Runnable>();
 		setLayout(new BorderLayout(0, 0));
 		setDesign(design);
@@ -176,7 +166,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		if(design != null)
 			this.design.unregister(this);
 		design = d;
@@ -185,7 +175,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		// TODO Auto-generated method stub
 		return design;
 	}

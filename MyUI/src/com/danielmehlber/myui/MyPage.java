@@ -1,14 +1,14 @@
 package com.danielmehlber.myui;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class MyPage extends JPanel implements Designable{
 
-	public MyMaterialDesign design;
+	public MyDesign design;
 	
 	public boolean isMoving = false;
 	
-	public MyPage(MyMaterialDesign d) {
+	public MyPage(MyDesign d) {
 		setDesign(d);
 		setLayout(null);
 		applyDesign();
@@ -27,7 +27,7 @@ public class MyPage extends JPanel implements Designable{
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		if(design != null)
 			this.design.unregister(this);
 		design = d;
@@ -36,7 +36,7 @@ public class MyPage extends JPanel implements Designable{
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		// TODO Auto-generated method stub
 		return design;
 	}

@@ -1,6 +1,6 @@
 package com.danielmehlber.myui;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class MyChartEntry implements Comparable<MyChartEntry>{
 

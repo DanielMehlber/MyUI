@@ -1,12 +1,10 @@
 package com.danielmehlber.myui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
 
 //TODO: Enable & Disable
 //TODO: Status (invalid input, checking)
@@ -14,13 +12,13 @@ import javax.swing.border.EtchedBorder;
 
 public class MyToggleButton extends JPanel implements Designable{
 
-	public MyMaterialDesign design;
+	public MyDesign design;
 	public MyColor custom_color;
 	private EtchedBorder border;
 	public Component clickable;
 	private boolean clicked;
 	
-	public MyToggleButton(MyMaterialDesign d, boolean _clicked) {
+	public MyToggleButton(MyDesign d, boolean _clicked) {
 		design = d;
 		clicked = _clicked;
 		setSize(20,20);
@@ -89,7 +87,7 @@ public class MyToggleButton extends JPanel implements Designable{
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		if(design != null)
 			design.unregister(this);
 		design = d;
@@ -98,7 +96,7 @@ public class MyToggleButton extends JPanel implements Designable{
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		// TODO Auto-generated method stub
 		return design;
 	}

@@ -1,26 +1,14 @@
 package com.danielmehlber.myui;
 
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import javax.swing.JTextField;
-
-
-import java.awt.Component;
-import javax.swing.Box;
-
 public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 	private Component entry;
-	private MyMaterialDesign design;
+	private MyDesign design;
 	private MyColor textColor;
 	private MyColor color;
 	private int lineThickness = 2;
@@ -42,7 +30,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 	 * Create the panel.
 	 * @wbp.parser.constructor
 	 */
-	public MyTextEntry(MyMaterialDesign design, MY_TEXT_ENTRY_MODE mode) {
+	public MyTextEntry(MyDesign design, MY_TEXT_ENTRY_MODE mode) {
 		runnables = new ArrayList<Runnable>();
 		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
@@ -93,7 +81,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 		
 	}
 	
-	public MyTextEntry(MyMaterialDesign design) {
+	public MyTextEntry(MyDesign design) {
 		this(design, MY_TEXT_ENTRY_MODE.NORMAL);
 	}
 
@@ -122,13 +110,13 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable{
 	}
 
 	@Override
-	public void setDesign(MyMaterialDesign d) {
+	public void setDesign(MyDesign d) {
 		design = d;
 		applyDesign();
 	}
 
 	@Override
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		return design;
 	}
 

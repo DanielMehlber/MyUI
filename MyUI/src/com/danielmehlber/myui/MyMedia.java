@@ -1,15 +1,8 @@
 package com.danielmehlber.myui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-
-import javax.swing.JPanel;
 
 public class MyMedia extends JPanel{
 

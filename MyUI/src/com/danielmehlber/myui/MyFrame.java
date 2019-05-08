@@ -1,36 +1,12 @@
 package com.danielmehlber.myui;
 
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import java.awt.Point;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Component;
-import java.awt.Cursor;
-
-import javax.swing.Box;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class MyFrame extends JFrame implements Designable{
 
-	private MyMaterialDesign design;
+	private MyDesign design;
 	public JPanel top;
 	public JPanel scene;
 	private JLabel title;
@@ -52,14 +28,26 @@ public class MyFrame extends JFrame implements Designable{
 	 * Creates a Frame with no Material Design
 	 */
 	public MyFrame() {
-		this(new MyMaterialDesign());
+		this(new MyDesign());
+	}
+
+	/**
+	 * Creates new Frame with Size and Design
+	 * @param d
+	 * @param x
+	 * @param y
+	 */
+	public MyFrame(MyDesign d, String title, int x, int y){
+		this(d);
+		setSize(x,y);
+		setTitle(title);
 	}
 	
 	/**
 	 * Creates a Frame with specified Material Design
 	 * @param d Material Design
 	 */
-	public MyFrame(MyMaterialDesign d) {
+	public MyFrame(MyDesign d) {
 		setVisible(false);
 		setDesign(d);
 		setUndecorated(true);
@@ -379,12 +367,12 @@ public class MyFrame extends JFrame implements Designable{
 	 * Returns the current Design
 	 * @return Design
 	 */
-	public MyMaterialDesign getDesign() {
+	public MyDesign getDesign() {
 		return design;
 	}
 
 	
-	public void setDesign(MyMaterialDesign design) {
+	public void setDesign(MyDesign design) {
 		if(this.design != null)
 			this.design.unregister(this);
 		this.design = design;
@@ -504,7 +492,6 @@ public class MyFrame extends JFrame implements Designable{
 	
 	/**
 	 * Plays the roll-out animation
-	 * @param height The end-height
 	 * @param wait should the program wait till the animation finishes ?
 	 */
 	public void animation_roll_in(boolean wait) {
@@ -560,11 +547,10 @@ public class MyFrame extends JFrame implements Designable{
 		else
 			t.run();
 	}
-	
+
 	/**
-	 * Plays the close window animation
-	 * @param width Width
-	 * @param height Height
+	 * Plays the 'close window' animation
+	 * @param wait Continue when animation is finished ?
 	 */
 	public void animation_close_window(boolean wait) {
 		if(!animsEnabled) {
@@ -601,7 +587,7 @@ public class MyFrame extends JFrame implements Designable{
 	
 	/**
 	 * Enable or disable the standard window animations
-	 * @param b
+	 * @param b enable/disable
 	 */
 	public void setAnimationsEnabled(boolean b) {
 		animsEnabled = b;
@@ -617,7 +603,10 @@ public class MyFrame extends JFrame implements Designable{
 		setVisible(true);
 		animation_open_window(width, height, true);
 	}
-	
+
+	/**
+	 * Simplest way to start a frame using set bounds
+	 */
 	public void go() {
 		go(getWidth(), getHeight());
 	}
@@ -642,15 +631,27 @@ public class MyFrame extends JFrame implements Designable{
 		
 	}
 
+	/**
+	 * Get the default cursor
+	 * @return default cursor
+	 */
 	public Cursor getDefaultCursor() {
 		return defaultCursor;
 	}
 
+	/**
+	 * Set default cursor
+	 * @param defaultCursor cursor
+	 */
 	public void setDefaultCursor(Cursor defaultCursor) {
 		this.defaultCursor = defaultCursor;
 	}
-	
-	
+
+	/**
+	 * Change pages
+	 * @param to The page that should be on top
+	 * @param dir Direction the current page flies out
+	 */
 	public void changePage(MyPage to, MyDirection dir) {
 		
 		if(to == null) {

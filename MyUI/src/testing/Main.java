@@ -1,26 +1,9 @@
 package testing;
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import com.danielmehlber.myui.MyButton;
-import com.danielmehlber.myui.MyChartEntry;
-import com.danielmehlber.myui.MyColor;
-import com.danielmehlber.myui.MyDialog;
-import com.danielmehlber.myui.MyDirection;
-import com.danielmehlber.myui.MyFrame;
-import com.danielmehlber.myui.MyGradient;
-import com.danielmehlber.myui.MyMaterialDesign;
-import com.danielmehlber.myui.MyMedia;
-import com.danielmehlber.myui.MyPage;
-import com.danielmehlber.myui.MyProgessChart;
-import com.danielmehlber.myui.MySyncTask;
-import com.danielmehlber.myui.MyTextEntry;
-import com.danielmehlber.myui.MyToggleButton;
-import com.danielmehlber.myui.MyMaterialDesign.FRAME_DESIGN;
+import com.danielmehlber.myui.*;
 import com.danielmehlber.myui.MyTextEntry.MY_TEXT_ENTRY_MODE;
+
+import javax.swing.*;
 
 public class Main extends MyFrame{
 
@@ -47,7 +30,7 @@ public class Main extends MyFrame{
 	Runnable rBack;
 	
 	public Main() {
-		super(MyMaterialDesign.FOX);
+		super(MyDesign.FOX);
 		setSize(600, 600);
 		setResizable(false);
 		setTitle("Testing Area");
