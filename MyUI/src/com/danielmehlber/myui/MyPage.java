@@ -8,6 +8,10 @@ public class MyPage extends JPanel implements Designable {
 
     public boolean isMoving = false;
 
+    public MyPage() {
+    	design = MyDesign.DEFAULT;
+    }
+    
     public MyPage(MyDesign d) {
         setDesign(d);
         setLayout(null);
@@ -17,7 +21,6 @@ public class MyPage extends JPanel implements Designable {
     @Override
     public void applyDesign() {
         setBackground(design.baseColor);
-
     }
 
     public MyButton genButton(String text) {

@@ -62,12 +62,6 @@ public class MyFrame extends JFrame implements Designable {
      * @param d Material Design
      */
     public MyFrame(MyDesign d) {
-        try {
-            close = ImageIO.read(new File("cross-flat.png"));
-        } catch (IOException e) {
-            System.err.println("Cannot find close icon...");
-            e.printStackTrace();
-        }
         setVisible(false);
         setDesign(d);
         setUndecorated(true);
@@ -442,6 +436,7 @@ public class MyFrame extends JFrame implements Designable {
         scene.removeAll();
         scene.add(page, BorderLayout.CENTER);
     }
+    
 
     /**
      * Generates a content page from design

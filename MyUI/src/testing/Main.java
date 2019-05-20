@@ -27,7 +27,7 @@ public class Main extends MyFrame {
         getDesign().frameTopDesign = MyDesign.FRAME_DESIGN.BAR;
         getDesign().apply();
         setSize(600, 600);
-        setResizable(false);
+        setResizable(true);
         setTitle("Testing Area");
         runnables();
         pgFront = new MyPage(getDesign());
@@ -35,7 +35,7 @@ public class Main extends MyFrame {
         btnToLoginPage.setLocation(220, 206);
         btnToLoginPage.addRunnable(() -> changePage(pgLogin, MyDirection.NORTH));
         pgFront.add(btnToLoginPage);
-        setContentPage(pgFront);
+        //setContentPage(pgFront);
 
         JLabel lblWelcomeToThe = new JLabel("Welcome to the Testing App !");
         lblWelcomeToThe.setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,7 +73,6 @@ public class Main extends MyFrame {
         pc.add(new MyChartEntry(20, MyColor.BLUE));
         pc.add(new MyChartEntry(90, MyColor.GREEN));
         pgHome.add(pc);
-        //setContentPage(pgHome);
 
         pgScrollHome = new MyScrollPane(getDesign(), false, true);
         MyGradient gradientPane = new MyGradient(MyDirection.SOUTH, MyColor.BLUE, MyColor.RED);
@@ -81,7 +80,10 @@ public class Main extends MyFrame {
         pgScrollHome.setContentPane(gradientPane);
         super.scene.removeAll();
         super.scene.add(pgScrollHome, BorderLayout.CENTER);
+        pgScrollHome.updateSize();
+        setContentPage(pgScrollHome);
 
+        
         go();
 
     }
