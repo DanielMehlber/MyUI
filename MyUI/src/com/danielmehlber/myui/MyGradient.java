@@ -2,6 +2,8 @@ package com.danielmehlber.myui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.geom.Rectangle2D;
 
 public class MyGradient extends JPanel {
@@ -19,6 +21,29 @@ public class MyGradient extends JPanel {
         color2 = c2;
         setDirection(dir);
         last = new Dimension(getWidth(), getHeight());
+
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setDirection(direction);
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+
+            }
+        });
+
     }
 
     public void setDirection(MyDirection dir) {

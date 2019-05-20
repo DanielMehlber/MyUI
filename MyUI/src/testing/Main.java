@@ -4,6 +4,7 @@ import com.danielmehlber.myui.*;
 import com.danielmehlber.myui.MyTextEntry.MY_TEXT_ENTRY_MODE;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main extends MyFrame {
 
@@ -11,6 +12,7 @@ public class Main extends MyFrame {
     MyPage pgFront;
     MyPage pgLogin;
     MyPage pgHome;
+    MyScrollPane pgScrollHome;
     MyButton btnToLoginPage;
     MyButton btnLogin;
     MyButton btnBack;
@@ -72,6 +74,14 @@ public class Main extends MyFrame {
         pc.add(new MyChartEntry(90, MyColor.GREEN));
         pgHome.add(pc);
         //setContentPage(pgHome);
+
+        pgScrollHome = new MyScrollPane(getDesign(), false, true);
+        MyGradient gradientPane = new MyGradient(MyDirection.SOUTH, MyColor.BLUE, MyColor.RED);
+        gradientPane.setSize(200, 1000);
+        pgScrollHome.setContentPane(gradientPane);
+        super.scene.removeAll();
+        super.scene.add(pgScrollHome, BorderLayout.CENTER);
+
         go();
 
     }
