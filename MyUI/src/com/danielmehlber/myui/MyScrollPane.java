@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+
+/**
+ * Scroll Pane
+ */
 public class MyScrollPane extends JPanel implements Designable{
 
     MyDesign design;
