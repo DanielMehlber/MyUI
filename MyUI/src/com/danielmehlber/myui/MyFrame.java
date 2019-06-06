@@ -81,14 +81,14 @@ public class MyFrame extends JFrame implements Designable {
         topButtons = new JPanel();
         top.add(topButtons, BorderLayout.EAST);
 
-        Font buttonFont = new Font(Font.MONOSPACED, Font.BOLD, 12);
+        Font buttonFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
-        exit = new JLabel(" ✕ ");
+        exit = new JLabel(" \u2715 ");
         System.out.println(exit.getFont());
         exit.setFont(buttonFont);
-        minimize = new JLabel(" ─ ");
+        minimize = new JLabel(" \u2500 ");
         minimize.setFont(buttonFont);
-        maximize = new JLabel(" ❏ ");
+        maximize = new JLabel(" \u274F ");
         maximize.setFont(buttonFont);
         topButtons.add(minimize);
         topButtons.add(maximize);

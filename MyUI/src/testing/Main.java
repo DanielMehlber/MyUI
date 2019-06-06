@@ -12,7 +12,6 @@ public class Main extends MyFrame {
     MyPage pgFront;
     MyPage pgLogin;
     MyPage pgHome;
-    MyScrollPane pgScrollHome;
     MyButton btnToLoginPage;
     MyButton btnLogin;
     MyButton btnBack;
@@ -74,14 +73,7 @@ public class Main extends MyFrame {
         pc.add(new MyChartEntry(90, MyColor.GREEN));
         pgHome.add(pc);
 
-        pgScrollHome = new MyScrollPane(getDesign(), false, true);
-        MyGradient gradientPane = new MyGradient(MyDirection.SOUTH, MyColor.BLUE, MyColor.RED);
-        gradientPane.setSize(200, 1000);
-        pgScrollHome.setContentPane(gradientPane);
-        super.scene.removeAll();
-        super.scene.add(pgScrollHome, BorderLayout.CENTER);
-        pgScrollHome.updateSize();
-        setContentPage(pgScrollHome);
+
 
         
         go();
