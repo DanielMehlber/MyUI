@@ -292,6 +292,10 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     public enum MY_TEXT_ENTRY_MODE {
         NORMAL, PASSWORD
     }
+    
+    public void setTextSize(float size) {
+    	setFont(getFont().deriveFont(size));
+    }
 
 
 }

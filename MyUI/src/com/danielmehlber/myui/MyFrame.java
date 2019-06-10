@@ -679,6 +679,8 @@ public class MyFrame extends JFrame implements Designable {
      */
     public void changePage(MyPage to, MyDirection dir) {
 
+    	//TODO: Change in time
+    	
         if (to == null) {
             System.err.println("Page can't be null");
             return;
@@ -718,7 +720,7 @@ public class MyFrame extends JFrame implements Designable {
                     }
 
                     case EAST: {
-                        y_fac = 1;
+                        x_fac = 1;
                         break;
                     }
 

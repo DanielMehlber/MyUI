@@ -40,7 +40,6 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Runs at click
      */
-    private Runnable operator;
 
     /**
      * Controlles the Gap between Button and Shadow
@@ -102,7 +101,6 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
             @Override
             public void mousePressed(MouseEvent e) {
                 press();
-
             }
 
             @Override
@@ -289,18 +287,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
         this.shadowYOffset = shadowOffset;
     }
 
-    public Runnable getOperator() {
-        return operator;
-    }
 
-    /**
-     * What's supposed to happen when the button is pressed
-     *
-     * @param runnable Runnable
-     */
-    public void setOperator(Runnable runnable) {
-        operator = runnable;
-    }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -384,6 +371,8 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
             r.run();
 
     }
+    
+    
 
 
 }
