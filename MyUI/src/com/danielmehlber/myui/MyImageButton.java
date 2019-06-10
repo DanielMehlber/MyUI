@@ -5,14 +5,15 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MyInteractiveImage extends MyPanel{
+public class MyImageButton extends MyPanel{
 
 	private Image now;
 	private Image normal;
 	private Image hover;
 	private Image click;
+	private Runnable operation;
 	
-	public MyInteractiveImage(Image n) {
+	public MyImageButton(Image n) {
 		super();
 		this.normal = n;
 		addMouseListener(new MouseListener() {
@@ -20,6 +21,8 @@ public class MyInteractiveImage extends MyPanel{
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				now = n;
+				if(operation!=null)
+					operation.run();
 				repaint();
 			}
 			
@@ -87,6 +90,14 @@ public class MyInteractiveImage extends MyPanel{
 	public void setClick(Image click) {
 		this.click = click;
 		repaint();
+	}
+
+	public Runnable getOperation() {
+		return operation;
+	}
+
+	public void setOperation(Runnable operation) {
+		this.operation = operation;
 	}
 	
 	
