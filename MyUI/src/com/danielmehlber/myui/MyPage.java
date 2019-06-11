@@ -52,7 +52,6 @@ public class MyPage extends JPanel implements Designable {
 
     public void animatation_slide_out(MyDirection dir) {
         Thread t = new Thread(() -> {
-            System.out.println("SLIDE");
             int x_fac = 0;
             int y_fac = 0;
             switch (dir) {

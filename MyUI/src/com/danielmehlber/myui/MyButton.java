@@ -84,12 +84,11 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     public MyButton(MyDesign design, String s) {
         runnables = new ArrayList<>();
         setLayout(new BorderLayout(0, 0));
-        setDesign(design);
         setBounds(0, 0, 150, 40);
         text = new JLabel(s);
         text.setHorizontalAlignment(SwingConstants.CENTER);
         add(text, BorderLayout.CENTER);
-        applyDesign();
+        setDesign(design);
 
         addMouseListener(new MouseListener() {
 
@@ -169,7 +168,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
             this.design.unregister(this);
         design = d;
         design.register(this);
-
+        applyDesign();
     }
 
     /**

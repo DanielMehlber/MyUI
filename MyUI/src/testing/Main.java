@@ -34,7 +34,7 @@ public class Main extends MyFrame {
         btnToLoginPage.setLocation(220, 206);
         btnToLoginPage.addRunnable(() -> changePage(pgLogin, MyDirection.NORTH));
         pgFront.add(btnToLoginPage);
-        //setContentPage(pgFront);
+        setContentPage(pgFront);
 
         JLabel lblWelcomeToThe = new JLabel("Welcome to the Testing App !");
         lblWelcomeToThe.setHorizontalAlignment(SwingConstants.CENTER);

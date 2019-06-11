@@ -115,7 +115,10 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
 
     @Override
     public void setDesign(MyDesign d) {
+    	if(design!=null)
+    		design.unregister(this);
         design = d;
+        design.register(this);
         applyDesign();
     }
 
@@ -147,7 +150,6 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     }
 
     public void setFont(Font font) {
-        System.out.println(font);
         super.setFont(font);
         applyDesign();
     }

@@ -27,6 +27,7 @@ public class MyLabel extends JLabel implements Designable{
 			design.unregister(this);
 		design = d;
 		design.register(this);
+		applyDesign();
 	}
 
 	@Override

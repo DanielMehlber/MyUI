@@ -95,6 +95,7 @@ public class MyDesign {
     }
 
     public void apply() {
+    	System.out.println("<MyUI> Updated design");
         for (Designable user : users) {
             user.applyDesign();
         }

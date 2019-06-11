@@ -63,7 +63,6 @@ public class MyFrame extends JFrame implements Designable {
      */
     public MyFrame(MyDesign d) {
         setVisible(false);
-        setDesign(d);
         setUndecorated(true);
         setSize(0, 0);
         getContentPane().setLayout(new BorderLayout(0, 0));
@@ -71,7 +70,6 @@ public class MyFrame extends JFrame implements Designable {
         getContentPane().add(top, BorderLayout.NORTH);
 
         top.setLayout(new BorderLayout(0, 0));
-
 
         title = new JLabel("-- Untitled Frame --");
         title.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -84,7 +82,6 @@ public class MyFrame extends JFrame implements Designable {
         Font buttonFont = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
         exit = new JLabel(" \u2715 ");
-        System.out.println(exit.getFont());
         exit.setFont(buttonFont);
         minimize = new JLabel(" \u2500 ");
         minimize.setFont(buttonFont);
@@ -104,7 +101,7 @@ public class MyFrame extends JFrame implements Designable {
         y_resize.setBorder(null);
         y_resize.setLayout(new BorderLayout(0, 0));
 
-        verticalStrut = Box.createVerticalStrut(1);
+        verticalStrut = Box.createVerticalStrut(2);
         y_resize.add(verticalStrut);
 
         x_resize = new JPanel();
@@ -112,9 +109,10 @@ public class MyFrame extends JFrame implements Designable {
         x_resize.setBorder(null);
         x_resize.setLayout(new BoxLayout(x_resize, BoxLayout.X_AXIS));
 
-        horizontalStrut = Box.createHorizontalStrut(1);
+        horizontalStrut = Box.createHorizontalStrut(2);
         x_resize.add(horizontalStrut);
 
+        setDesign(d);
 
         y_resize.addMouseListener(new MouseListener() {
 
@@ -366,7 +364,8 @@ public class MyFrame extends JFrame implements Designable {
 
     @Override
     public void applyDesign() {
-        scene.setBackground(design.getBaseColor());
+    	if(scene != null)
+    		scene.setBackground(design.getBaseColor());
 
         //FRAME_TOP_DESIGN
         switch (design.getFrameTopDesign()) {
@@ -411,6 +410,7 @@ public class MyFrame extends JFrame implements Designable {
             this.design.unregister(this);
         this.design = design;
         this.design.register(this);
+        applyDesign();
     }
 
     @Override
@@ -551,18 +551,19 @@ public class MyFrame extends JFrame implements Designable {
             setSize(width, height);
             return;
         }
+        
         Thread t = new Thread(() -> {
             setSize(100, top.getSize().height);
             while (getSize().width < width) {
-                MySyncTask.sync(120);
-                setSize((int) (getSize().width + 20 * design.animation_speed), getSize().height);
+                MySyncTask.sync(60);
+                setSize((int) (getSize().width + (design.animation_speed/60 * width)*2), getSize().height);
             }
 
             while (getSize().height < height) {
-                MySyncTask.sync(120);
-                setSize(getSize().width, (int) (getSize().height + 20 * design.animation_speed));
+                MySyncTask.sync(60);
+                setSize(getSize().width, (int) (getSize().height + design.animation_speed/60 * height * 2));
             }
-
+            
         });
         if (!wait)
             t.start();
@@ -582,20 +583,23 @@ public class MyFrame extends JFrame implements Designable {
         }
         Thread t = new Thread(() -> {
 
+     
+        	int tick_y = (int) (design.animation_speed/60 * getHeight() * 2);
             while (getSize().height > top.getHeight()) {
-                MySyncTask.sync(120);
-                setSize(getSize().width, (int) (getSize().height - 20 * design.animation_speed));
-                if (getSize().height < top.getHeight())
-                    setSize(getWidth(), top.getHeight());
+                MySyncTask.sync(60);
+                setSize(getSize().width, (int) (getSize().height - tick_y));
+            
             }
-
+            
             setSize(getWidth(), top.getHeight());
 
+            setSize(getWidth(), top.getHeight());
+            int tick_x = (int) (2 * design.animation_speed / 60 * getWidth());
             while (getSize().width > 0) {
-                MySyncTask.sync(120);
-                setSize((int) (getSize().width - 20 * design.animation_speed), getSize().height);
+                MySyncTask.sync(60);
+                setSize((int) (getSize().width - tick_x), getSize().height);
             }
-
+            
 
         });
         if (!wait)
@@ -739,9 +743,9 @@ public class MyFrame extends JFrame implements Designable {
 
 
             to.setLocation(-to.getWidth() * x_fac, -to.getHeight() * y_fac);
-            int tick = (int) (20 * design.animation_speed);
+            int tick = (int) (design.animation_speed / 60 * Math.abs(to.getWidth()*x_fac+to.getHeight()*y_fac));
             while (!(Math.abs(to.getY()) < tick + 1) || !(Math.abs(to.getX()) < tick + 1)) {
-                MySyncTask.sync(120);
+                MySyncTask.sync(60);
                 int deltax = (tick * x_fac);
                 int deltay = (tick * y_fac);
                 currentPage.setLocation(currentPage.getLocation().x + deltax, currentPage.getLocation().y + deltay);
