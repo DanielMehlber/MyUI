@@ -675,17 +675,8 @@ public class MyFrame extends JFrame implements Designable {
         this.defaultCursor = defaultCursor;
     }
 
-    /**
-     * Change pages
-     *
-     * @param to  The page that should be on top
-     * @param dir Direction the current page flies out
-     */
-    public void changePage(MyPage to, MyDirection dir) {
-
-    	//TODO: Change in time
-    	
-        if (to == null) {
+    public void changePage(MyPage to, MyDirection dir, float time) {
+    	if (to == null) {
             System.err.println("Page can't be null");
             return;
         }
@@ -743,7 +734,7 @@ public class MyFrame extends JFrame implements Designable {
 
 
             to.setLocation(-to.getWidth() * x_fac, -to.getHeight() * y_fac);
-            int tick = (int) (design.animation_speed / 60 * Math.abs(to.getWidth()*x_fac+to.getHeight()*y_fac));
+            int tick = (int) (time / 60 * Math.abs(to.getWidth()*x_fac+to.getHeight()*y_fac));
             while (!(Math.abs(to.getY()) < tick + 1) || !(Math.abs(to.getX()) < tick + 1)) {
                 MySyncTask.sync(60);
                 int deltax = (tick * x_fac);
@@ -762,6 +753,16 @@ public class MyFrame extends JFrame implements Designable {
 
         t.start();
 
+    }
+    
+    /**
+     * Change pages
+     *
+     * @param to  The page that should be on top
+     * @param dir Direction the current page flies out
+     */
+    public void changePage(MyPage to, MyDirection dir) {
+    	changePage(to, dir, design.animation_speed);
     }
 
 

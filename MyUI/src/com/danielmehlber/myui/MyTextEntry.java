@@ -14,7 +14,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     private MyColor color;
     private int lineThickness = 2;
     private String subtext = "";
-    private int subtextSize = 8;
+    private int subtextSize = 15;
     private Component verticalStrut;
     private int subtextOffsetY = 8;
     private int subtextOffsetX;
@@ -28,6 +28,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
      * @wbp.parser.constructor
      */
     public MyTextEntry(MyDesign design, MY_TEXT_ENTRY_MODE mode) {
+    	this.design = design;
         runnables = new ArrayList<>();
         setOpaque(false);
         setLayout(new BorderLayout(0, 0));
@@ -51,7 +52,6 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
 
         add(entry);
         setDesign(design);
-        reset();
 
         verticalStrut = Box.createVerticalStrut(getFontMetrics(getFont().deriveFont(subtextSize)).getHeight() + subtextOffsetY + 4);
         add(verticalStrut, BorderLayout.SOUTH);
@@ -92,19 +92,13 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
         //Set Background
         setBackground(design.getBaseColor());
         entry.setBackground(design.getBaseColor());
-
+        
         //Set Text Color
         MyColor tc = design.getTextColor();
         if (textColor != null)
             tc = textColor;
         entry.setForeground(tc);
-
-        //Set Text Font
-        Font f = design.font;
-        if (super.getFont() != null) {
-            f = super.getFont();
-        }
-        entry.setFont(f);
+        entry.setFont(getFont());
 
     }
 
@@ -140,13 +134,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     }
 
     public Font getFont() {
-        if (design == null)
-            return super.getFont();
-
-        Font f = design.font;
-        if (super.getFont() != null)
-            f = super.getFont();
-        return f;
+    	return design==null ? super.getFont() : design.font;
     }
 
     public void setFont(Font font) {
@@ -161,7 +149,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
         g2d.setColor(getColor());
         g2d.setStroke(new BasicStroke(lineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
         g2d.drawLine(0, entry.getHeight() + 2, (int) (getWidth() * line_fac), entry.getHeight() + 2);
-        g2d.setFont(design.font.deriveFont(subtextSize));
+        g2d.setFont(design.font.deriveFont((float)subtextSize));
         g2d.drawString(subtext, subtextOffsetX, entry.getHeight() + subtextSize + subtextOffsetY);
     }
 
