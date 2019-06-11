@@ -582,7 +582,8 @@ public class MyFrame extends JFrame implements Designable {
             return;
         }
         Thread t = new Thread(() -> {
-
+        	
+        	int topHeight = top.getHeight();
      
         	int tick_y = (int) (design.animation_speed/60 * getHeight() * 2);
             while (getSize().height > top.getHeight()) {
@@ -591,7 +592,7 @@ public class MyFrame extends JFrame implements Designable {
             
             }
             
-            setSize(getWidth(), top.getHeight());
+            setSize(getWidth(), topHeight);
 
             setSize(getWidth(), top.getHeight());
             int tick_x = (int) (2 * design.animation_speed / 60 * getWidth());

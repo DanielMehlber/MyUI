@@ -88,12 +88,8 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     public void applyDesign() {
         if (getDesign() == null)
             return;
-
-        //Set Background
         setBackground(design.getBaseColor());
         entry.setBackground(design.getBaseColor());
-        
-        //Set Text Color
         MyColor tc = design.getTextColor();
         if (textColor != null)
             tc = textColor;
@@ -174,15 +170,13 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     public String getText() {
         String text = null;
         switch (mode) {
-            case NORMAL: {
+            case NORMAL:
                 text = ((JTextField) entry).getText();
                 break;
-            }
 
-            case PASSWORD: {
+            case PASSWORD: 
                 text = ((JPasswordField) entry).getText();
-                break;
-            }
+                break;         
         }
         return text;
     }
