@@ -86,6 +86,17 @@ public class Main extends MyFrame {
 
     private void runnables() {
         rlogin = () -> {
+        	String _t = btnLogin.getText();
+        	btnLogin.setText("...");
+        	btnLogin.setEnabled(false);
+        	
+        	try {
+				Thread.currentThread().sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
             String susername = username.getText();
             String spassword = password.getText();
             if (susername.equals("user") && spassword.equals("password")) {
@@ -96,6 +107,8 @@ public class Main extends MyFrame {
             } else {
                 password.error("Just type 'password' goddamnit!", 3);
             }
+            
+            System.out.println("EXIT RUNNABLE");
         };
 
         rBack = () -> changePage(pgFront, MyDirection.SOUTH);
