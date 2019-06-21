@@ -291,6 +291,8 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
+            	if(!isResizable())
+            		return;
                 if (getExtendedState() != MAXIMIZED_BOTH)
                     setExtendedState(MAXIMIZED_BOTH);
                 else
