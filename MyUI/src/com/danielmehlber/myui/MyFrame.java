@@ -223,9 +223,19 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-            	if(onClose!=null)
-            		onClose.run();
+            	Thread oc = null;
+            	if(onClose!=null) {
+            		oc = new Thread(onClose);
+            		oc.start();
+            	}
                 animation_close_window(true);
+                if(onClose!=null)
+					try {
+						oc.join();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 System.exit(0);
 
             }
