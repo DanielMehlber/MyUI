@@ -27,6 +27,7 @@ public class MyFrame extends JFrame implements Designable {
     private Component verticalStrut;
     private Component horizontalStrut;
     private BufferedImage close;
+    private Runnable onClose;
 
     @Override
     public void paint(Graphics g){
@@ -222,6 +223,8 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
+            	if(onClose!=null)
+            		onClose.run();
                 animation_close_window(true);
                 System.exit(0);
 
@@ -766,6 +769,10 @@ public class MyFrame extends JFrame implements Designable {
      */
     public void changePage(MyPage to, MyDirection dir) {
     	changePage(to, dir, design.animation_speed);
+    }
+    
+    public void doOnClose(Runnable r) {
+    	onClose = r;
     }
 
 
