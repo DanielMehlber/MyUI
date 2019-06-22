@@ -86,7 +86,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
 
     @Override
     public void applyDesign() {
-        if (getDesign() == null)
+        if (design == null)
             return;
         setBackground(design.getBaseColor());
         entry.setBackground(design.getBaseColor());
@@ -95,7 +95,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
             tc = textColor;
         entry.setForeground(tc);
         entry.setFont(getFont());
-
+        repaint();
     }
 
     @Override
@@ -262,7 +262,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
             isBusy = true;
             MySyncTask.sleep((long) (1000 * seconds));
             setSubtext(_subtext);
-            setColor(_color);
+            reset();
             animation_reunterline();
             isBusy = false;
         });
