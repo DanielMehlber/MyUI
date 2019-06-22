@@ -28,6 +28,7 @@ public class MyFrame extends JFrame implements Designable {
     private Component horizontalStrut;
     private BufferedImage close;
     private Runnable onClose;
+    private boolean isClosed;
 
     @Override
     public void paint(Graphics g){
@@ -223,20 +224,19 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-            	Thread oc = null;
             	if(onClose!=null) {
-            		oc = new Thread(onClose);
+            		final Thread oc = new Thread(onClose);
             		oc.start();
+            		animation_close_window(false);
+            		new Thread(() ->  {
+            			while(oc.isAlive() || !isClosed) {}
+            			System.exit(1);
+					} ).start();
             	}
-                animation_close_window(true);
-                if(onClose!=null)
-					try {
-						oc.join();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                System.exit(0);
+            	else {
+            		animation_close_window(true);
+            		System.exit(0);
+            	}
 
             }
 
@@ -579,6 +579,7 @@ public class MyFrame extends JFrame implements Designable {
                 setSize(getSize().width, (int) (getSize().height + design.animation_speed/60 * height * 2));
             }
             
+            isClosed = false;
         });
         if (!wait)
             t.start();
@@ -615,7 +616,7 @@ public class MyFrame extends JFrame implements Designable {
                 MySyncTask.sync(60);
                 setSize((int) (getSize().width - tick_x), getSize().height);
             }
-            
+            isClosed = true;
 
         });
         if (!wait)
@@ -784,6 +785,10 @@ public class MyFrame extends JFrame implements Designable {
     public void doOnClose(Runnable r) {
     	onClose = r;
     }
+
+	public boolean isClosed() {
+		return isClosed;
+	}
 
 
 }

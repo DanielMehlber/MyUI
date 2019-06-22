@@ -14,7 +14,7 @@ public class MyImageButton extends MyPanel{
 	private Runnable operation;
 	
 	public MyImageButton(Image n) {
-		super();
+		super(MyDesign.DEFAULT);
 		this.normal = n;
 		addMouseListener(new MouseListener() {
 			

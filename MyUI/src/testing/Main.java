@@ -19,6 +19,7 @@ public class Main extends MyFrame {
     MyTextEntry username;
     MyTextEntry password;
     MyProgessChart pc;
+    MyPanel panel;
     Runnable rlogin;
     Runnable rBack;
     public Main() {
@@ -28,11 +29,20 @@ public class Main extends MyFrame {
         setSize(600, 600);
         setResizable(true);
         setTitle("Testing Area");
+        
+        doOnClose(() -> {
+        	setTitle("Bye...");
+        });
+        
         runnables();
         pgFront = new MyPage(getDesign());
         btnToLoginPage = new MyButton(getDesign(), "Enter");
         btnToLoginPage.setLocation(220, 206);
         btnToLoginPage.addRunnable(() -> changePage(pgLogin, MyDirection.NORTH));
+        panel = new MyPanel(getDesign());
+        panel.setHeader("SomeShit");
+        panel.setBounds(10,10,300,300);
+        pgFront.add(panel);
         pgFront.add(btnToLoginPage);
         setContentPage(pgFront);
 
