@@ -11,6 +11,7 @@ public class MyMedia extends JPanel {
     double xScale = 1, yScale = 1;
     BufferedImage image;
     BufferedImage processed;
+
     public MyMedia() {
         this(PLACEHOLDER_IMAGE);
     }

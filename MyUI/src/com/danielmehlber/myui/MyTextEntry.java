@@ -28,7 +28,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
      * @wbp.parser.constructor
      */
     public MyTextEntry(MyDesign design, MY_TEXT_ENTRY_MODE mode) {
-    	this.design = design;
+        this.design = design;
         runnables = new ArrayList<>();
         setOpaque(false);
         setLayout(new BorderLayout(0, 0));
@@ -105,8 +105,8 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
 
     @Override
     public void setDesign(MyDesign d) {
-    	if(design!=null)
-    		design.unregister(this);
+        if (design != null)
+            design.unregister(this);
         design = d;
         design.register(this);
         applyDesign();
@@ -130,7 +130,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     }
 
     public Font getFont() {
-    	return design==null ? super.getFont() : design.font;
+        return design == null ? super.getFont() : design.font;
     }
 
     public void setFont(Font font) {
@@ -145,7 +145,7 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
         g2d.setColor(getColor());
         g2d.setStroke(new BasicStroke(lineThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
         g2d.drawLine(0, entry.getHeight() + 2, (int) (getWidth() * line_fac), entry.getHeight() + 2);
-        g2d.setFont(design.font.deriveFont((float)subtextSize));
+        g2d.setFont(design.font.deriveFont((float) subtextSize));
         g2d.drawString(subtext, subtextOffsetX, entry.getHeight() + subtextSize + subtextOffsetY);
     }
 
@@ -174,9 +174,9 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
                 text = ((JTextField) entry).getText();
                 break;
 
-            case PASSWORD: 
+            case PASSWORD:
                 text = ((JPasswordField) entry).getText();
-                break;         
+                break;
         }
         return text;
     }
@@ -273,12 +273,12 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
 
     }
 
+    public void setTextSize(float size) {
+        setFont(getFont().deriveFont(size));
+    }
+
     public enum MY_TEXT_ENTRY_MODE {
         NORMAL, PASSWORD
-    }
-    
-    public void setTextSize(float size) {
-    	setFont(getFont().deriveFont(size));
     }
 
 

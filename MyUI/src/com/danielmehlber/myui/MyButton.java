@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MyButton extends JPanel implements Designable, MyRunnable {
 
-    ArrayList<Runnable> runnables;
+    final ArrayList<Runnable> runnables;
 
     /**
      * Design of the Component
@@ -35,7 +35,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Label printed on the button
      */
-    private JLabel text;
+    private final JLabel text;
 
     /**
      * Runs at click
@@ -72,7 +72,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Thickness of stroke
      */
-    private int strokeSize = 1;
+    private final int strokeSize = 1;
     /**
      * Restoration value (temporary)
      */
@@ -287,7 +287,6 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     }
 
 
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = getWidth();
@@ -366,11 +365,9 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     public void run() {
         for (Runnable r : runnables)
             //r.run();
-        	new Thread(r).start();
+            new Thread(r).start();
 
     }
-    
-    
 
 
 }

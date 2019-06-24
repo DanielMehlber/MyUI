@@ -41,9 +41,11 @@ public class MyDesign {
     public BUTTON_DESIGN buttonDesign;
     public TOGGLE_BUTTON_DESIGN toggleButtonDesign;
     ArrayList<Designable> users = new ArrayList<>();
+
     public MyDesign() {
         this(MyColor.WHITE, MyColor.WHITE, MyColor.BLACK);
     }
+
     public MyDesign(MyColor base, MyColor accent, MyColor text) {
         baseColor = base;
         accentColor = accent;
@@ -95,7 +97,7 @@ public class MyDesign {
     }
 
     public void apply() {
-    	System.out.println("<MyUI> Updated design");
+        System.out.println("<MyUI> Updated design");
         for (Designable user : users) {
             user.applyDesign();
         }
