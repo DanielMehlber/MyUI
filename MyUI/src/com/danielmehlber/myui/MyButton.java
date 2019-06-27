@@ -89,6 +89,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
         text.setHorizontalAlignment(SwingConstants.CENTER);
         add(text, BorderLayout.CENTER);
         setDesign(design);
+        setOpaque(false);
 
         addMouseListener(new MouseListener() {
 
@@ -299,10 +300,6 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-
-
-        graphics.setColor(design.baseColor);
-        graphics.fillRect(0, 0, width, height);//paint background
 
 
         //Draws shadow borders if any.
