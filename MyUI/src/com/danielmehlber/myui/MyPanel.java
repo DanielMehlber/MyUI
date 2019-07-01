@@ -1,8 +1,11 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
+import javax.swing.JPanel;
 
 public class MyPanel extends JPanel implements Designable{
 
@@ -51,20 +54,7 @@ public class MyPanel extends JPanel implements Designable{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         
-        switch(colorStyle) {
-		case CUSTOM:
-			g2d.setColor(color);
-			break;
-		case DESIGN_ACCENT:
-			g2d.setColor(design.accentColor);
-			break;
-		case DESIGN_BASE:
-			g2d.setColor(design.baseColor);
-			break;
-		default:
-			break;
-        
-        }
+        g2d.setColor(getColor());
         
         g2d.fillRoundRect(0, 0, getWidth(), getHeight(), roundness, roundness);
         if(!isTitled())
@@ -88,30 +78,13 @@ public class MyPanel extends JPanel implements Designable{
         	g2d.drawChars(header.toCharArray(), 0, header.length(), 5, 5+design.font.getSize());
     }
     
-    @Override
-    public void setBackground(Color c) {
-    	color = new MyColor(c);
-    	repaint();
-    	revalidate();
-    }
-    
-    @Override
-    public void setForeground(Color c) {
-    	color = new MyColor(c);
-    	repaint();
-    	revalidate();
-    }
-    
-    public void setBackground(MyColor c) {
+    public void setColor(MyColor c) {
     	color = c;
     	repaint();
-    	revalidate();
     }
     
-    public void setForeground(MyColor c) {
-    	color = c;
-    	repaint();
-    	revalidate();
+    public Color getColor() {
+    	return color;
     }
 
 	public String getHeader() {
@@ -132,6 +105,21 @@ public class MyPanel extends JPanel implements Designable{
 
 	@Override
 	public void applyDesign() {
+		MyColor r = color;
+    	switch(colorStyle) {
+		case CUSTOM:
+			break;
+		case DESIGN_ACCENT:
+			r = design.accentColor;
+			break;
+		case DESIGN_BASE:
+			r = design.baseColor;
+			break;
+		default:
+			break;
+    	
+    	}
+    	color = r;
 		repaint();
 		
 	}
@@ -152,7 +140,20 @@ public class MyPanel extends JPanel implements Designable{
 
 	@Override
 	public void reset() {
+		switch(colorStyle) {
 		
+		case CUSTOM:
+			break;
+		case DESIGN_ACCENT:
+			color = design.getAccentColor();
+			break;
+		case DESIGN_BASE:
+			color = design.getBaseColor();
+			break;
+		default:
+			break;
+		
+		}
 	}
 
 	public boolean isTitled() {
@@ -179,6 +180,7 @@ public class MyPanel extends JPanel implements Designable{
 
 	public void setColorStyle(COLOR_STYLE colorStyle) {
 		this.colorStyle = colorStyle;
+		applyDesign();
 	}
     
 

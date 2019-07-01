@@ -1,10 +1,19 @@
 package testing;
 
-import com.danielmehlber.myui.*;
-import com.danielmehlber.myui.MyTextEntry.MY_TEXT_ENTRY_MODE;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
-import javax.swing.*;
-import java.awt.*;
+import com.danielmehlber.myui.MyButton;
+import com.danielmehlber.myui.MyChartEntry;
+import com.danielmehlber.myui.MyColor;
+import com.danielmehlber.myui.MyDesign;
+import com.danielmehlber.myui.MyDirection;
+import com.danielmehlber.myui.MyFrame;
+import com.danielmehlber.myui.MyPage;
+import com.danielmehlber.myui.MyPanel;
+import com.danielmehlber.myui.MyProgessChart;
+import com.danielmehlber.myui.MyTextEntry;
+import com.danielmehlber.myui.MyTextEntry.MY_TEXT_ENTRY_MODE;
 
 public class Main extends MyFrame {
 
@@ -38,7 +47,7 @@ public class Main extends MyFrame {
         pgFront = new MyPage(getDesign());
         btnToLoginPage = new MyButton(getDesign(), "Enter");
         btnToLoginPage.setLocation(220, 206);
-        btnToLoginPage.addRunnable(() -> changePage(pgLogin, MyDirection.NORTH));
+        btnToLoginPage.addRunnable(() -> home());
         panel = new MyPanel(getDesign());
         panel.setHeader("SomeShit");
         panel.setBounds(10,10,300,300);
@@ -54,6 +63,7 @@ public class Main extends MyFrame {
         lblWelcomeToThe.setForeground(getDesign().textColor);
 
         pgLogin = new MyPage(getDesign());
+        pgLogin.setSize(1000, 500);
         btnLogin = new MyButton(getDesign(), "Login");
         btnLogin.setLocation(321, 344);
         btnLogin.addRunnable(rlogin);
@@ -89,6 +99,12 @@ public class Main extends MyFrame {
         go();
 
     }
+    
+    public void home() {
+    	setResizable(true);
+    	setSize(pgLogin.getSize());
+    	changePage(pgLogin, MyDirection.WEST);
+    }
 
     public static void main(String[] args) {
         new Main();
@@ -101,9 +117,9 @@ public class Main extends MyFrame {
         	btnLogin.setEnabled(false);
         	
         	try {
-				Thread.currentThread().sleep(1000);
+				Thread.currentThread();
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	

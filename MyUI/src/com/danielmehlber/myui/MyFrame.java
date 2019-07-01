@@ -1,13 +1,26 @@
 package com.danielmehlber.myui;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class MyFrame extends JFrame implements Designable {
 
@@ -334,13 +347,15 @@ public class MyFrame extends JFrame implements Designable {
 
         Point point = new Point();
         addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
+            @Override
+			public void mousePressed(MouseEvent e) {
                 point.x = e.getX();
                 point.y = e.getY();
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
+            @Override
+			public void mouseDragged(MouseEvent e) {
                 Point p = getLocation();
                 setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
             }
@@ -359,6 +374,7 @@ public class MyFrame extends JFrame implements Designable {
                 if (currentPage == null)
                     return;
                 currentPage.setSize(scene.getSize());
+                revalidate();
 
             }
 
@@ -415,12 +431,14 @@ public class MyFrame extends JFrame implements Designable {
      *
      * @return Design
      */
-    public MyDesign getDesign() {
+    @Override
+	public MyDesign getDesign() {
         return design;
     }
 
 
-    public void setDesign(MyDesign design) {
+    @Override
+	public void setDesign(MyDesign design) {
         if (this.design != null)
             this.design.unregister(this);
         this.design = design;
@@ -604,7 +622,7 @@ public class MyFrame extends JFrame implements Designable {
         	int tick_y = (int) (design.animation_speed/60 * getHeight() * 2);
             while (getSize().height > top.getHeight()) {
                 MySyncTask.sync(60);
-                setSize(getSize().width, (int) (getSize().height - tick_y));
+                setSize(getSize().width, getSize().height - tick_y);
             
             }
             
@@ -614,7 +632,7 @@ public class MyFrame extends JFrame implements Designable {
             int tick_x = (int) (2 * design.animation_speed / 60 * getWidth());
             while (getSize().width > 0) {
                 MySyncTask.sync(60);
-                setSize((int) (getSize().width - tick_x), getSize().height);
+                setSize(getSize().width - tick_x, getSize().height);
             }
             isClosed = true;
 

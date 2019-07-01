@@ -1,10 +1,12 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 //TODO: Enable & Disable
 //TODO: Status (invalid input, checking)

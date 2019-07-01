@@ -52,6 +52,7 @@ public class MyImageButton extends MyPanel{
 		});
 	}
 	
+	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(now, 0,0,getWidth(), getHeight(), null);
 	}

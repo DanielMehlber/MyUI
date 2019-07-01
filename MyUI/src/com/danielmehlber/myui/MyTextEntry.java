@@ -1,10 +1,19 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import javax.swing.Box;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class MyTextEntry extends JPanel implements Designable, MyRunnable {
     ArrayList<Runnable> runnables;
@@ -129,11 +138,13 @@ public class MyTextEntry extends JPanel implements Designable, MyRunnable {
         applyDesign();
     }
 
-    public Font getFont() {
+    @Override
+	public Font getFont() {
     	return design==null ? super.getFont() : design.font;
     }
 
-    public void setFont(Font font) {
+    @Override
+	public void setFont(Font font) {
         super.setFont(font);
         applyDesign();
     }

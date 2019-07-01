@@ -1,6 +1,6 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 public class MyPage extends JPanel implements Designable {
 

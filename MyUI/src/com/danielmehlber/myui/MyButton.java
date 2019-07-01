@@ -1,10 +1,19 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class MyButton extends JPanel implements Designable, MyRunnable {
 
@@ -174,7 +183,8 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Enables or Disables the button
      */
-    public void setEnabled(boolean e) {
+    @Override
+	public void setEnabled(boolean e) {
         super.setEnabled(e);
 
         if (e)
@@ -288,7 +298,8 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 
 
 
-    protected void paintComponent(Graphics g) {
+    @Override
+	protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = getWidth();
         int height = getHeight();

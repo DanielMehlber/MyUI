@@ -1,10 +1,14 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.JPanel;
 
 public class MyDialog extends JPanel implements Designable {
 
@@ -15,13 +19,15 @@ public class MyDialog extends JPanel implements Designable {
 
         Point point = new Point();
         addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
+            @Override
+			public void mousePressed(MouseEvent e) {
                 point.x = e.getX();
                 point.y = e.getY();
             }
         });
         addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
+            @Override
+			public void mouseDragged(MouseEvent e) {
                 Point p = getLocation();
                 setLocation(p.x + e.getX() - point.x, p.y + e.getY() - point.y);
             }

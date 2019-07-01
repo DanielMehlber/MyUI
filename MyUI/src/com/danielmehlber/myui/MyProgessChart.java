@@ -1,9 +1,13 @@
 package com.danielmehlber.myui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JPanel;
 
 public class MyProgessChart extends JPanel implements Designable {
 
