@@ -1,38 +1,38 @@
 package com.danielmehlber.myui;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
-public class MyLabel extends JLabel implements Designable{
+public class MyLabel extends JLabel implements Designable {
 
-	private MyDesign design;
-	
-	public MyLabel(MyDesign design) {
-		setDesign(design);
-	}
+    private MyDesign design;
 
-	@Override
-	public void applyDesign() {
-		setFont(getDesign().font);
-		setForeground(design.textColor);
-	}
+    public MyLabel(MyDesign design) {
+        setDesign(design);
+    }
 
-	@Override
-	public MyDesign getDesign() {
-		return design;
-	}
+    @Override
+    public void applyDesign() {
+        setFont(getDesign().font);
+        setForeground(design.textColor);
+    }
 
-	@Override
-	public void setDesign(MyDesign d) {
-		if(design!=null)
-			design.unregister(this);
-		design = d;
-		design.register(this);
-		applyDesign();
-	}
+    @Override
+    public MyDesign getDesign() {
+        return design;
+    }
 
-	@Override
-	public void reset() {
-		
-	}
-	
+    @Override
+    public void setDesign(MyDesign d) {
+        if (design != null)
+            design.unregister(this);
+        design = d;
+        design.register(this);
+        applyDesign();
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
 }

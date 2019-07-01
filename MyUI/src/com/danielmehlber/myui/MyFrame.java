@@ -15,12 +15,18 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 
 public class MyFrame extends JFrame implements Designable {
 
@@ -42,14 +48,6 @@ public class MyFrame extends JFrame implements Designable {
     private BufferedImage close;
     private Runnable onClose;
     private boolean isClosed;
-
-    @Override
-    public void paint(Graphics g){
-        super.paint(g);
-        //Graphics2D g2d = (Graphics2D) g;
-        //g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-        //g.drawImage(close, exit.getX() + topButtons.getX(), exit.getY()+topButtons.getY(), exit.getWidth(), exit.getHeight(), null);
-    }
 
     /**
      * Creates a Frame with no Material Design
@@ -237,19 +235,19 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-            	if(onClose!=null) {
-            		final Thread oc = new Thread(onClose);
-            		oc.start();
-            		animation_close_window(false);
-            		new Thread(() ->  {
-            			while(oc.isAlive() || !isClosed) {}
-            			System.exit(1);
-					} ).start();
-            	}
-            	else {
-            		animation_close_window(true);
-            		System.exit(0);
-            	}
+                if (onClose != null) {
+                    final Thread oc = new Thread(onClose);
+                    oc.start();
+                    animation_close_window(false);
+                    new Thread(() -> {
+                        while (oc.isAlive() || !isClosed) {
+                        }
+                        System.exit(1);
+                    }).start();
+                } else {
+                    animation_close_window(true);
+                    System.exit(0);
+                }
 
             }
 
@@ -317,8 +315,8 @@ public class MyFrame extends JFrame implements Designable {
 
             @Override
             public void mousePressed(MouseEvent e) {
-            	if(!isResizable())
-            		return;
+                if (!isResizable())
+                    return;
                 if (getExtendedState() != MAXIMIZED_BOTH)
                     setExtendedState(MAXIMIZED_BOTH);
                 else
@@ -394,9 +392,17 @@ public class MyFrame extends JFrame implements Designable {
     }
 
     @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        //Graphics2D g2d = (Graphics2D) g;
+        //g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+        //g.drawImage(close, exit.getX() + topButtons.getX(), exit.getY()+topButtons.getY(), exit.getWidth(), exit.getHeight(), null);
+    }
+
+    @Override
     public void applyDesign() {
-    	if(scene != null)
-    		scene.setBackground(design.getBaseColor());
+        if (scene != null)
+            scene.setBackground(design.getBaseColor());
 
         //FRAME_TOP_DESIGN
         switch (design.getFrameTopDesign()) {
@@ -469,7 +475,7 @@ public class MyFrame extends JFrame implements Designable {
         scene.removeAll();
         scene.add(page, BorderLayout.CENTER);
     }
-    
+
 
     /**
      * Generates a content page from design
@@ -584,19 +590,19 @@ public class MyFrame extends JFrame implements Designable {
             setSize(width, height);
             return;
         }
-        
+
         Thread t = new Thread(() -> {
             setSize(100, top.getSize().height);
             while (getSize().width < width) {
                 MySyncTask.sync(60);
-                setSize((int) (getSize().width + (design.animation_speed/60 * width)*2), getSize().height);
+                setSize((int) (getSize().width + (design.animation_speed / 60 * width) * 2), getSize().height);
             }
 
             while (getSize().height < height) {
                 MySyncTask.sync(60);
-                setSize(getSize().width, (int) (getSize().height + design.animation_speed/60 * height * 2));
+                setSize(getSize().width, (int) (getSize().height + design.animation_speed / 60 * height * 2));
             }
-            
+
             isClosed = false;
         });
         if (!wait)
@@ -616,16 +622,15 @@ public class MyFrame extends JFrame implements Designable {
             return;
         }
         Thread t = new Thread(() -> {
-        	
-        	int topHeight = top.getHeight();
-     
-        	int tick_y = (int) (design.animation_speed/60 * getHeight() * 2);
+
+            int topHeight = top.getHeight();
+
+            int tick_y = (int) (design.animation_speed / 60 * getHeight() * 2);
             while (getSize().height > top.getHeight()) {
                 MySyncTask.sync(60);
-                setSize(getSize().width, getSize().height - tick_y);
-            
+                setSize(getSize().width, (int) (getSize().height - tick_y));
             }
-            
+
             setSize(getWidth(), topHeight);
 
             setSize(getWidth(), top.getHeight());
@@ -711,7 +716,7 @@ public class MyFrame extends JFrame implements Designable {
     }
 
     public void changePage(MyPage to, MyDirection dir, float time) {
-    	if (to == null) {
+        if (to == null) {
             System.err.println("Page can't be null");
             return;
         }
@@ -769,7 +774,7 @@ public class MyFrame extends JFrame implements Designable {
 
 
             to.setLocation(-to.getWidth() * x_fac, -to.getHeight() * y_fac);
-            int tick = (int) (time / 60 * Math.abs(to.getWidth()*x_fac+to.getHeight()*y_fac));
+            int tick = (int) (time / 60 * Math.abs(to.getWidth() * x_fac + to.getHeight() * y_fac));
             while (!(Math.abs(to.getY()) < tick + 1) || !(Math.abs(to.getX()) < tick + 1)) {
                 MySyncTask.sync(60);
                 int deltax = (tick * x_fac);
@@ -789,7 +794,7 @@ public class MyFrame extends JFrame implements Designable {
         t.start();
 
     }
-    
+
     /**
      * Change pages
      *
@@ -797,16 +802,16 @@ public class MyFrame extends JFrame implements Designable {
      * @param dir Direction the current page flies out
      */
     public void changePage(MyPage to, MyDirection dir) {
-    	changePage(to, dir, design.animation_speed);
-    }
-    
-    public void doOnClose(Runnable r) {
-    	onClose = r;
+        changePage(to, dir, design.animation_speed);
     }
 
-	public boolean isClosed() {
-		return isClosed;
-	}
+    public void doOnClose(Runnable r) {
+        onClose = r;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
 
 
 }

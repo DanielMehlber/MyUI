@@ -29,7 +29,6 @@ public class MyColor extends Color {
     public final static MyColor ORANGE_PINKY = new MyColor(231, 158, 109);
 
 
-
     public MyColor() {
         super(0, 0, 0);
     }

@@ -9,9 +9,9 @@ public class MyPage extends JPanel implements Designable {
     public boolean isMoving = false;
 
     public MyPage() {
-    	design = MyDesign.DEFAULT;
+        design = MyDesign.DEFAULT;
     }
-    
+
     public MyPage(MyDesign d) {
         setDesign(d);
         setLayout(null);

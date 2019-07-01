@@ -3,6 +3,7 @@ package testing;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+
 import com.danielmehlber.myui.MyButton;
 import com.danielmehlber.myui.MyChartEntry;
 import com.danielmehlber.myui.MyColor;
@@ -15,22 +16,26 @@ import com.danielmehlber.myui.MyProgessChart;
 import com.danielmehlber.myui.MyTextEntry;
 import com.danielmehlber.myui.MyTextEntry.MY_TEXT_ENTRY_MODE;
 
+import javax.swing.*;
+
+
 public class Main extends MyFrame {
 
     //Component Space
-    MyPage pgFront;
+    final MyPage pgFront;
     MyPage pgLogin;
-    MyPage pgHome;
-    MyButton btnToLoginPage;
-    MyButton btnLogin;
-    MyButton btnBack;
+    final MyPage pgHome;
+    final MyButton btnToLoginPage;
+    final MyButton btnLogin;
+    final MyButton btnBack;
     MyButton btnLogout;
-    MyTextEntry username;
-    MyTextEntry password;
-    MyProgessChart pc;
-    MyPanel panel;
+    final MyTextEntry username;
+    final MyTextEntry password;
+    final MyProgessChart pc;
+    final MyPanel panel;
     Runnable rlogin;
     Runnable rBack;
+
     public Main() {
         super(MyDesign.PINK_NEON);
         getDesign().frameTopDesign = MyDesign.FRAME_DESIGN.BAR;
@@ -38,11 +43,11 @@ public class Main extends MyFrame {
         setSize(600, 600);
         setResizable(true);
         setTitle("Testing Area");
-        
+
         doOnClose(() -> {
-        	setTitle("Bye...");
+            setTitle("Bye...");
         });
-        
+
         runnables();
         pgFront = new MyPage(getDesign());
         btnToLoginPage = new MyButton(getDesign(), "Enter");
@@ -50,7 +55,7 @@ public class Main extends MyFrame {
         btnToLoginPage.addRunnable(() -> home());
         panel = new MyPanel(getDesign());
         panel.setHeader("SomeShit");
-        panel.setBounds(10,10,300,300);
+        panel.setBounds(10, 10, 300, 300);
         pgFront.add(panel);
         pgFront.add(btnToLoginPage);
         setContentPage(pgFront);
@@ -94,8 +99,6 @@ public class Main extends MyFrame {
         pgHome.add(pc);
 
 
-
-        
         go();
 
     }
@@ -112,6 +115,7 @@ public class Main extends MyFrame {
 
     private void runnables() {
         rlogin = () -> {
+
         	String _t = btnLogin.getText();
         	btnLogin.setText("...");
         	btnLogin.setEnabled(false);
@@ -123,6 +127,7 @@ public class Main extends MyFrame {
 				e.printStackTrace();
 			}
         	
+
             String susername = username.getText();
             String spassword = password.getText();
             if (susername.equals("user") && spassword.equals("password")) {
@@ -133,7 +138,7 @@ public class Main extends MyFrame {
             } else {
                 password.error("Just type 'password' goddamnit!", 3);
             }
-            
+
             System.out.println("EXIT RUNNABLE");
         };
 

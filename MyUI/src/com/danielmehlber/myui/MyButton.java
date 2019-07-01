@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 
 public class MyButton extends JPanel implements Designable, MyRunnable {
 
-    ArrayList<Runnable> runnables;
+    final ArrayList<Runnable> runnables;
 
     /**
      * Design of the Component
@@ -44,7 +44,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Label printed on the button
      */
-    private JLabel text;
+    private final JLabel text;
 
     /**
      * Runs at click
@@ -81,7 +81,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     /**
      * Thickness of stroke
      */
-    private int strokeSize = 1;
+    private final int strokeSize = 1;
     /**
      * Restoration value (temporary)
      */
@@ -98,6 +98,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
         text.setHorizontalAlignment(SwingConstants.CENTER);
         add(text, BorderLayout.CENTER);
         setDesign(design);
+        setOpaque(false);
 
         addMouseListener(new MouseListener() {
 
@@ -297,9 +298,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     }
 
 
-
-    @Override
-	protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int width = getWidth();
         int height = getHeight();
@@ -311,10 +310,6 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-
-
-        graphics.setColor(design.baseColor);
-        graphics.fillRect(0, 0, width, height);//paint background
 
 
         //Draws shadow borders if any.
@@ -377,11 +372,9 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
     public void run() {
         for (Runnable r : runnables)
             //r.run();
-        	new Thread(r).start();
+            new Thread(r).start();
 
     }
-    
-    
 
 
 }
