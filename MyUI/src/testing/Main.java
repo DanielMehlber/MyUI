@@ -10,6 +10,7 @@ import com.danielmehlber.myui.MyColor;
 import com.danielmehlber.myui.MyDesign;
 import com.danielmehlber.myui.MyDirection;
 import com.danielmehlber.myui.MyFrame;
+import com.danielmehlber.myui.MyList;
 import com.danielmehlber.myui.MyPage;
 import com.danielmehlber.myui.MyPanel;
 import com.danielmehlber.myui.MyProgessChart;
@@ -32,7 +33,7 @@ public class Main extends MyFrame {
     final MyTextEntry username;
     final MyTextEntry password;
     final MyProgessChart pc;
-    final MyPanel panel;
+    final MyList panel;
     Runnable rlogin;
     Runnable rBack;
 
@@ -53,9 +54,17 @@ public class Main extends MyFrame {
         btnToLoginPage = new MyButton(getDesign(), "Enter");
         btnToLoginPage.setLocation(220, 206);
         btnToLoginPage.addRunnable(() -> home());
-        panel = new MyPanel(getDesign());
+        panel = new MyList(getDesign());
         panel.setHeader("SomeShit");
         panel.setBounds(10, 10, 300, 300);
+        MyPanel entry = new MyPanel(getDesign());
+        entry.setBackground(MyColor.black);
+        entry.setSize(50,50);
+        MyPanel entry2 = new MyPanel(getDesign());
+        entry2.setBackground(MyColor.GREEN);
+        entry2.setSize(50,50);
+        panel.addEntry(entry);
+        panel.addEntry(entry2);
         pgFront.add(panel);
         pgFront.add(btnToLoginPage);
         setContentPage(pgFront);
