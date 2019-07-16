@@ -347,13 +347,7 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 		repaint();
 	}
 
-	public void release() {
-		setColor(restore_color);
-		setShadowGap(restore_shadow_gap);
-		restore_shadow_gap = 0;
-		repaint();
-		run();
-	}
+	
 
 	@Override
 	public void addRunnable(Runnable r) {
@@ -361,11 +355,20 @@ public class MyButton extends JPanel implements Designable, MyRunnable {
 
 	}
 
+
 	@Override
 	public void run() {
 		for (Runnable r : runnables)
 			// r.run();
 			new Thread(r).start();
+	}
+	
+    public void release() {
+        setColor(null);
+        setShadowGap(restore_shadow_gap);
+        restore_shadow_gap = 0;
+        repaint();
+        run();
 
 	}
 

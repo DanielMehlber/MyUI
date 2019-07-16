@@ -96,12 +96,12 @@ public class MyDesign {
 		users.remove(obj);
 	}
 
-	public void apply() {
-		System.out.println("<MyUI> Updated design");
-		for (Designable user : users) {
-			user.applyDesign();
-		}
-	}
+
+    public void apply() {
+        for (Designable user : users) {
+            user.applyDesign();
+        }
+    }
 
 	public void setAnimationSpeed(float speed) {
 		this.animation_speed = speed;
