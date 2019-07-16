@@ -2,15 +2,14 @@ package com.danielmehlber.myui;
 
 public class MyTask {
 
-    protected Runnable runnable;
+	protected Runnable runnable;
 
-    public MyTask(Runnable _runnable) {
-        runnable = _runnable;
-    }
+	public MyTask(Runnable _runnable) {
+		runnable = _runnable;
+	}
 
-
-    void fire() {
-        runnable.run();
-    }
+	void fire() {
+		runnable.run();
+	}
 
 }
