@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -27,6 +28,7 @@ public class MyList extends MyPanel {
 		setLayout(new BorderLayout(0, 0));
 		contentPane = new JPanel();
 		scrollPane = new JScrollPane(contentPane);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		contentPane.setLayout(null);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBackground(Color.WHITE);
