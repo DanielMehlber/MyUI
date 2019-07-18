@@ -9,6 +9,11 @@ public class MyLabel extends JLabel implements Designable {
 	public MyLabel(MyDesign design) {
 		setDesign(design);
 	}
+	
+	public MyLabel(MyDesign design, String text) {
+		this(design);
+		setText(text);
+	}
 
 	@Override
 	public void applyDesign() {
